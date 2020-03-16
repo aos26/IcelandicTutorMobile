@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">IcelandicTutor</string>
+    <string name="title_activity_game" />
 </resources>
