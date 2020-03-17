@@ -15,6 +15,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_game"></activity>
+        <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
