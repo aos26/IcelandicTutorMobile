@@ -1,0 +1,38 @@
+form {
+    margin: 25px;
+    padding-top: 25px;
+}
+
+.form-group {
+    margin-left: 35vw;
+    width: 25vw;
+}
+
+.btn {
+    display: inline-block;
+
+}
+
+.login {
+    margin-left: 35vw;
+    border-color: black;
+}
+
+.register {
+    margin-left: 15px;
+    background-color: lightskyblue;
+    border-color: black;
+}
+
+h1 {
+    text-align: center;
+}
+
+h3 {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.header {
+    margin-bottom: 100px;
+}

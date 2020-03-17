@@ -1,0 +1,30 @@
+body {
+    margin: 0 20px;
+}
+
+.categoryCard {
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    height: 33vh;
+}
+
+.cardMiddle {
+    padding-top: 50px;
+}
+
+.header {
+    margin-bottom: 100px;
+}
+
+
+.btn {
+    background-color: black;
+}
+
+.logoutbtn {
+    float: right;
+    margin-top: 8px;
+    background-color: white;
+    color: black;
+}
