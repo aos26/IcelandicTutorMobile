@@ -2,17 +2,16 @@ package is.hi.hbv601g.icelandictutor;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout.LayoutParams;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,62 +24,62 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class DictionaryActivity extends AppCompatActivity {
+public class ScoreboardActivity extends AppCompatActivity {
+    private int loopLength = 10;
     private Button mBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dictionary);
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            String value = extras.getString("key");
-            //The key argument here must match that used in the other activity
-            Log.e( "onCreate: ", value);
-            populateDictionary(value);
-        }
+        setContentView(R.layout.activity_scoreboard);
+
         mBackButton = findViewById(R.id.backButton);
+        populateScoreboard();
+
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToDictionarySelection();
+                goToMain();
             }
         });
     }
 
-    // Create layout for words in category
-    public void createTableEntry(String question, String answer) {
-        TableLayout tl = (TableLayout) findViewById(R.id.myTable);
+    // Create layout for scoreboard
+    private void createTableEntry(String userName, int score, int i) {
+        TableLayout tl = (TableLayout) findViewById(R.id.myScoreTable);
         /* Create a new row to be added. */
         TableRow tr = new TableRow(this);
         tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
 
         /* Create TextView to be the row-content. */
-        TextView isl = new TextView(this);
-        isl.setText(question);
-        isl.setLayoutParams(new TableRow.LayoutParams(0, LayoutParams.MATCH_PARENT, 1));
-        isl.setGravity(Gravity.CENTER);
+        TextView place = new TextView(this);
+        place.setText(Integer.toString(i));
+        place.setLayoutParams(new TableRow.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1));
+        place.setGravity(Gravity.CENTER);
 
-        TextView eng = new TextView(this);
-        eng.setText(answer);
-        eng.setLayoutParams(new TableRow.LayoutParams(0, LayoutParams.MATCH_PARENT, 1));
-        eng.setGravity(Gravity.CENTER);
+        TextView username = new TextView(this);
+        username.setText(userName);
+        username.setLayoutParams(new TableRow.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1));
+        username.setGravity(Gravity.CENTER);
+
+        TextView userScore = new TextView(this);
+        userScore.setText(Integer.toString(score));
+        userScore.setLayoutParams(new TableRow.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1));
+        userScore.setGravity(Gravity.CENTER);
 
         /* Add TextView to row. */
-        tr.addView(isl);
-        tr.addView(eng);
+        tr.addView(place);
+        tr.addView(username);
+        tr.addView(userScore);
 
         /* Add row to TableLayout. */
         tl.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
     }
 
-    // Fetch words from category
-    private void populateDictionary(String value) {
+    // Fetch top user scores
+    private void populateScoreboard() {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        String urlStart = "https://icelandic-tutor.herokuapp.com/questions?cat_id=";
-        String urlCat = value;  // Fetch words from category that user selected
-        String urlLvl = "&lvl_id=1";
-        String url = urlStart + urlCat + urlLvl;
+        String url = "https://icelandic-tutor.herokuapp.com/scoreboard";
 
         JsonArrayRequest objectRequest = new JsonArrayRequest(
                 Request.Method.GET,
@@ -90,16 +89,19 @@ public class DictionaryActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.e("Rest response", response.toString());
+                        if(response.length() <= 10) {
+                            loopLength = response.length();
+                        }
 
-                        for (int i = 0; i < response.length(); i++) {
+                        for (int i = 0; i < loopLength; i++) {
                             JSONObject jsonobject = null;
                             try {
                                 jsonobject = response.getJSONObject(i);
-                                String question = jsonobject.getString("questionWord");
-                                String answer = jsonobject.getString("answer");
-                                Log.e("onResponse: ", question);
-                                Log.e("onResponse: ", answer);
-                                createTableEntry(question, answer);
+                                String userName = jsonobject.getString("userName");
+                                int score = jsonobject.getInt("score");
+                                Log.e("onResponse: ", userName);
+                                //Log.e("onResponse: ", score);
+                                createTableEntry(userName, score, i+1);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -116,8 +118,10 @@ public class DictionaryActivity extends AppCompatActivity {
         requestQueue.add(objectRequest);
     }
 
-    private void goToDictionarySelection() {
-        Intent intent = new Intent(DictionaryActivity.this, DictionarySelectionActivity.class);
+
+    // Go back to main page
+    private void goToMain() {
+        Intent intent = new Intent(ScoreboardActivity.this, MainActivity.class);
         startActivity(intent);
     }
 }
