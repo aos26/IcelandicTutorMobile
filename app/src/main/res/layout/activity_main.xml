@@ -19,10 +19,16 @@
         app:layout_constraintVertical_bias="0.0">
 
         <Button
-            android:id="@+id/testButton"
+            android:id="@+id/dictButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dictionary Test" />
+            android:text="Dictionary" />
+
+        <Button
+            android:id="@+id/scoreButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Scoreboard" />
 
     </LinearLayout>
 

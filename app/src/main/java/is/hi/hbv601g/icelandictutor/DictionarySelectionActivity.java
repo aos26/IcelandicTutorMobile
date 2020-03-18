@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class DictionarySelectionActivity extends AppCompatActivity {
     private Button mAnimalButton;
     private Button mClothingButton;
+    private Button mBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +19,7 @@ public class DictionarySelectionActivity extends AppCompatActivity {
 
         mAnimalButton = findViewById(R.id.animalButton);
         mClothingButton = findViewById(R.id.clothesButton);
+        mBackButton = findViewById(R.id.backButton);
 
         mAnimalButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +33,12 @@ public class DictionarySelectionActivity extends AppCompatActivity {
                 goToCat("2");
             }
         });
+        mBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToMain();
+            }
+        });
     }
 
     // Go to dictionary page for relevant category (value of selection is sent to DictionaryActivity to display correct page)
@@ -38,5 +46,10 @@ public class DictionarySelectionActivity extends AppCompatActivity {
         Intent i = new Intent(DictionarySelectionActivity.this, DictionaryActivity.class);
         i.putExtra("key", value);
         startActivity(i);
+    }
+
+    private void goToMain() {
+        Intent intent = new Intent(DictionarySelectionActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }

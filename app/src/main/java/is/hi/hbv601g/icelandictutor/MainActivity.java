@@ -11,24 +11,37 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button mLoginButton;
+    private Button mScoreButton;
     private Button mDictionaryButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mDictionaryButton = findViewById(R.id.testButton);
+        mDictionaryButton = findViewById(R.id.dictButton);
         mDictionaryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dictionaryTest();
+                goToDictionarySelection();
             }
         });
 
+        mScoreButton = findViewById(R.id.scoreButton);
+        mScoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToScoreboard();
+            }
+        });
+    }
+
+    // Go to scoreboard view
+    public void goToScoreboard() {
+        Intent intent = new Intent(MainActivity.this, ScoreboardActivity.class);
+        startActivity(intent);
     }
 
     // Testing dictionary view
-    private void dictionaryTest(){
+    public void goToDictionarySelection(){
         Intent intent = new Intent(MainActivity.this, DictionarySelectionActivity.class);
         startActivity(intent);
     }
