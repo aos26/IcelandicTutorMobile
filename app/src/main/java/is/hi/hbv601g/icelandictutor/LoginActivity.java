@@ -56,23 +56,27 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    // Send user to main activity page
     public void logIn() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
+    // Send user to registration page
     public void register() {
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
     }
 
+    // Retrieve the text that user entered in login fields
     private void retrieveFields() {
         mUnameView = findViewById(R.id.username);
         mPasswordView = findViewById(R.id.password);
     }
 
+    // Check whether username/password combo exist in our database, if successful user is sent to main
+    // page. If user does not exist an error message is displayed.
     private void loginClick() {
-
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String usernameInput = mUnameView.getText().toString();
         String passwordInput = mPasswordView.getText().toString();
@@ -114,6 +118,5 @@ public class LoginActivity extends AppCompatActivity {
                 }
             };*/
             requestQueue.add(objectRequest);
-
     }
 }
