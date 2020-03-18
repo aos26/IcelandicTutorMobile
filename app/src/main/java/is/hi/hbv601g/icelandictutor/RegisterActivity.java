@@ -61,6 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    // Retrieve the text that user has entered into the registration form
     private void retrieveFields() {
         mNameView = findViewById(R.id.name);
         mUnameView = findViewById(R.id.username);
@@ -68,11 +69,13 @@ public class RegisterActivity extends AppCompatActivity {
         mPasswordView = findViewById(R.id.password);
     }
 
+    // Send user to login page
     private void goToLogin() {
         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 
+    // Check whether username is taken. Returns false if username is available, otherwise true
     private Boolean checkExisting(final String username) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
@@ -112,6 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
+    // Submits user data to database if fields are not empty and username isn't taken
     private void submitInfo() {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 

@@ -14,8 +14,15 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_game"></activity>
+            android:label="@string/title_activity_game">
+        </activity>
+
         <activity android:name=".RegisterActivity"></activity>
+
+        <activity android:name=".DictionaryActivity"></activity>
+
+        <activity android:name=".DictionarySelectionActivity"></activity>
+
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
