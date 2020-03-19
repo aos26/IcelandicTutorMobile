@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         retrieveFields();
-        Log.e("onCreate: test","testset" );
+
         mLoginButton = findViewById(R.id.loginButton);
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,13 +80,12 @@ public class LoginActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String usernameInput = mUnameView.getText().toString();
         String passwordInput = mPasswordView.getText().toString();
-        Log.e( "loginClick: ", usernameInput);
-        Log.e( "loginClick: ", passwordInput);
         Map<String, String> params = new HashMap();
         params.put("userName", usernameInput);
         params.put("password", passwordInput);
-        JSONObject jsonUser = new JSONObject(params);
+        JSONObject jsonUser = new JSONObject(params); // Create a JSONObject using info that user entered
 
+            /* Create an object request to database to check whether user exists */
             JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, loginURL, jsonUser,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -103,20 +102,6 @@ public class LoginActivity extends AppCompatActivity {
                             Log.e("Rest login error", error.toString());
                         }
                     });
-
-                /*
-                {
-                @Override
-                protected Map<String, String> getParams()
-                {
-                    String usernameInput = mUnameView.getText().toString();
-                    String passwordInput = mUnameView.getText().toString();
-                    Map<String, String> jsonUser = new HashMap<String, String>();
-                    jsonUser.put("userName", usernameInput);
-                    jsonUser.put("password", passwordInput);
-                    return jsonUser;
-                }
-            };*/
             requestQueue.add(objectRequest);
     }
 }

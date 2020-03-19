@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +17,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -123,10 +121,14 @@ public class RegisterActivity extends AppCompatActivity {
         String passwordInput = mPasswordView.getText().toString();
         String nameInput = mNameView.getText().toString();
         String emailInput = mEmailView.getText().toString();
+
+        /* Make sure fields aren't empty */
         if(usernameInput.equals("") || passwordInput.equals("") || nameInput.equals("") || emailInput.equals("")) {
             Toast.makeText(getApplicationContext(), "Fields must not be empty", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        /* Check whether username is available */
         boolean checkResult = checkExisting(usernameInput);
         if(checkResult) {
             Toast.makeText(getApplicationContext(), "Username is taken", Toast.LENGTH_SHORT).show();
@@ -142,8 +144,9 @@ public class RegisterActivity extends AppCompatActivity {
         params.put("name", nameInput);
         params.put("email", emailInput);
         params.put("score", scoreDefault);
-        JSONObject jsonUser = new JSONObject(params);
+        JSONObject jsonUser = new JSONObject(params);  // Create JSONObject using info user entered
 
+        /* Send objectRequest to the database to create new user */
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, registerURL, jsonUser,
                 new Response.Listener<JSONObject>() {
                     @Override

@@ -93,6 +93,7 @@ public class ScoreboardActivity extends AppCompatActivity {
                             loopLength = response.length();
                         }
 
+                        /* Fetch top ten user scores */
                         for (int i = 0; i < loopLength; i++) {
                             JSONObject jsonobject = null;
                             try {
@@ -101,7 +102,7 @@ public class ScoreboardActivity extends AppCompatActivity {
                                 int score = jsonobject.getInt("score");
                                 Log.e("onResponse: ", userName);
                                 //Log.e("onResponse: ", score);
-                                createTableEntry(userName, score, i+1);
+                                createTableEntry(userName, score, i+1);  // Create row entry for user
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
