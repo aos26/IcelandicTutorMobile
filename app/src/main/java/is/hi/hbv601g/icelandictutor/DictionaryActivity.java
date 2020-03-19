@@ -32,12 +32,13 @@ public class DictionaryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dictionary);
+
+        /* Get info on what category was selected in DictionarySelection */
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String value = extras.getString("key");
-            //The key argument here must match that used in the other activity
             Log.e( "onCreate: ", value);
-            populateDictionary(value);
+            populateDictionary(value);   // Insert words from the selected category
         }
         mBackButton = findViewById(R.id.backButton);
         mBackButton.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +78,8 @@ public class DictionaryActivity extends AppCompatActivity {
     // Fetch words from category
     private void populateDictionary(String value) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        // Piece together the correct url based on category that was selected
         String urlStart = "https://icelandic-tutor.herokuapp.com/questions?cat_id=";
         String urlCat = value;  // Fetch words from category that user selected
         String urlLvl = "&lvl_id=1";
@@ -91,6 +94,7 @@ public class DictionaryActivity extends AppCompatActivity {
                     public void onResponse(JSONArray response) {
                         Log.e("Rest response", response.toString());
 
+                        // Fetch all the Icelandic words and their corresponding English word
                         for (int i = 0; i < response.length(); i++) {
                             JSONObject jsonobject = null;
                             try {
@@ -99,7 +103,7 @@ public class DictionaryActivity extends AppCompatActivity {
                                 String answer = jsonobject.getString("answer");
                                 Log.e("onResponse: ", question);
                                 Log.e("onResponse: ", answer);
-                                createTableEntry(question, answer);
+                                createTableEntry(question, answer);  // Feed each word into method to create a row entry for the word
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

@@ -21,6 +21,7 @@ public class DictionarySelectionActivity extends AppCompatActivity {
         mClothingButton = findViewById(R.id.clothesButton);
         mBackButton = findViewById(R.id.backButton);
 
+        // Send button value to DictionaryActivity to show the words in the selected category
         mAnimalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,6 +34,7 @@ public class DictionarySelectionActivity extends AppCompatActivity {
                 goToCat("2");
             }
         });
+
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
