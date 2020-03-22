@@ -10,12 +10,36 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
     private Button mScoreButton;
     private Button mDictionaryButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+    }
+
+
+
+    public void game(View view) {
+        Intent intent = new Intent(MainActivity.this, GamecategoryActivity.class);
+        startActivity(intent);
+    }
+
+    public void article(View view) {
+        Intent intent = new Intent(MainActivity.this, ArticleActivity.class);
+        startActivity(intent);
+    }
+    public void flashcard(View view) {
+        Intent intent = new Intent(MainActivity.this, FlashcardActivity.class);
+        startActivity(intent);
+    }
+    public void location(View view) {
+        Intent intent = new Intent(MainActivity.this, LocationActivity.class);
+        startActivity(intent);
         mDictionaryButton = findViewById(R.id.dictButton);
         mDictionaryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 goToScoreboard();
             }
         });
+
     }
 
     // Go to scoreboard view

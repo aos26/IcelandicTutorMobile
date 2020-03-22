@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">IcelandicTutor</string>
     <string name="title_activity_game" />
+    <string name="play_a_game">Play a Game</string>
+    <string name="title_select_category">Game - Selet category</string>
+    <string name="title_select_level">Game - Selet level</string>
+    <string name="learn_some_words_in_the_dictionary">Learn some words in the Dictionary</string>
+    <string name="check_your_score">Check your score</string>
+    <string name="play_a_game_based_on_your_location">Play a game based on your location</string>
+    <string name="create_your_own_flashcards">Create your own flashcards</string>
+    <string name="read_articles_to_expand_your_vocabulary">read articles to expand your vocabulary</string>
+    <string name="animals">Animals</string>
+    <string name="store">Store</string>
+    <string name="clothes">Clothes</string>
+    <string name="home">home</string>
 </resources>

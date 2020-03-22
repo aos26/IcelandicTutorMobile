@@ -12,6 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".GamelevelActivity"
+            android:label="@string/title_select_level"></activity>
+        <activity android:name=".GamecategoryActivity"
+            android:label="@string/title_select_category" />
+        <activity
+            android:name=".ArticleActivity"
+            android:label="@string/read_articles_to_expand_your_vocabulary" />
+        <activity
+            android:name=".FlashcardActivity"
+            android:label="@string/create_your_own_flashcards" />
+        <activity
+            android:name=".LocationActivity"
+            android:label="@string/play_a_game_based_on_your_location" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_game">
@@ -28,6 +41,7 @@
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
