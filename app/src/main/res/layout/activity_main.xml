@@ -52,5 +52,29 @@
             android:text="@string/read_articles_to_expand_your_vocabulary" />
     </LinearLayout>
 
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <Button
+            android:id="@+id/dictButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dictionary" />
+
+        <Button
+            android:id="@+id/scoreButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Scoreboard" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
