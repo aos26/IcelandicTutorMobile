@@ -1,6 +1,8 @@
 package is.hi.hbv601g.icelandictutor;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,6 +20,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -27,14 +30,17 @@ import org.json.JSONObject;
 public class ScoreboardActivity extends AppCompatActivity {
     private int loopLength = 10;
     private Button mBackButton;
+    private TextView mCurrUserText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
 
+        mCurrUserText = findViewById(R.id.userScoreText);
         mBackButton = findViewById(R.id.backButton);
         populateScoreboard();
+        getCurrUserScore();
 
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +98,6 @@ public class ScoreboardActivity extends AppCompatActivity {
                         if(response.length() <= 10) {
                             loopLength = response.length();
                         }
-
                         /* Fetch top ten user scores */
                         for (int i = 0; i < loopLength; i++) {
                             JSONObject jsonobject = null;
@@ -119,6 +124,45 @@ public class ScoreboardActivity extends AppCompatActivity {
         requestQueue.add(objectRequest);
     }
 
+    private void getCurrUserScore() {
+        Context context = getApplicationContext();
+        SharedPreferences sharedPreferences = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
+
+        long userID = sharedPreferences.getLong("userID", 0);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        Log.e("getCurrUserScore: ", Long.toString(userID));
+        String url = "https://icelandic-tutor.herokuapp.com/user?user_id=" + userID;
+
+        JsonObjectRequest objectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.e("Rest Score response", response.toString());
+
+                        //JSONObject jsonobject = null;
+                        try {
+                            //jsonobject = response.getJSONObject(0);
+
+                            int score = response.getInt("score");
+                            mCurrUserText.setText(Integer.toString(score));
+                            //Log.e("onResponse: ", score);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Rest error", error.toString());
+                    }
+                }
+        );
+        requestQueue.add(objectRequest);
+    }
 
     // Go back to main page
     private void goToMain() {
