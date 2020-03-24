@@ -1,6 +1,8 @@
 package is.hi.hbv601g.icelandictutor;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -83,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         Map<String, String> params = new HashMap();
         params.put("userName", usernameInput);
         params.put("password", passwordInput);
-        JSONObject jsonUser = new JSONObject(params); // Create a JSONObject using info that user entered
+        final JSONObject jsonUser = new JSONObject(params); // Create a JSONObject using info that user entered
 
             /* Create an object request to database to check whether user exists */
             JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, loginURL, jsonUser,
@@ -91,7 +93,15 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             Toast.makeText(getApplicationContext(), "Login successful!", Toast.LENGTH_SHORT).show();
-                            Log.e("Rest response", response.toString());
+                            Log.e("Rest response breyttur", response.toString());
+                            Context context = getApplicationContext();
+                            SharedPreferences settings = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
+
+                            try {
+                                settings.edit().putLong("userID", response.getLong("id")).apply();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             logIn();
                         }
                     },
