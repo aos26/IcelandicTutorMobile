@@ -3,6 +3,7 @@ package is.hi.hbv601g.icelandictutor;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,11 @@ public class GameActivity extends AppCompatActivity {
     private Button mAnswer1;
     private Button mAnswer2;
     private Button mAnswer3;
+    private Button nextQuestion;
+
+    private Integer correct;
+    private String category;
+    private String level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,17 +38,18 @@ public class GameActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String category = extras.getString("category");
-            String level = extras.getString("level");
-            Integer correctCounter = extras.getInt("correct");
+            category = extras.getString("category");
+            level = extras.getString("level");
+            correct = extras.getInt("correct");
+
             Log.e( "onCreate: ", category);
             Log.e( "onCreate: ", level);
 
-            if (correctCounter == 10) {
-                // finish game - set texts and remove buttons
+            if (correct == 10) {
+                goMain();
             }
             else {
-                createQuestion(category, level, correctCounter);
+                getQuestion();
             }
         }
 
@@ -80,21 +87,12 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    private void counter(String category, String level, Integer counter) {
-        if (counter == 10){
-            // finish game -
-        }
-        else {
-            createQuestion(category, level, counter);
-        }
-    }
-
-    private void createQuestion(String value, String level, Integer counter) {
+    private void getQuestion() {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         // Piece together the correct url based on category that was selected
         String urlStart = "https://icelandic-tutor.herokuapp.com/questions?cat_id=";
-        String urlCat = value;  // Fetch words from category that user selected
+        String urlCat = category;  // Fetch words from category that user selected
         String urlLvl = "&lvl_id=" + level;
         String url = urlStart + urlCat + urlLvl;
         System.out.println(url);
@@ -109,7 +107,7 @@ public class GameActivity extends AppCompatActivity {
                         Log.e("Rest response", response.toString());
 
                         // Fetch one question
-                        Integer lengd = response.length()+1;
+                        Integer lengd = response.length();
                         Integer spurning = (int) (Math.random()*lengd);
                         System.out.println(spurning);
 
@@ -125,7 +123,7 @@ public class GameActivity extends AppCompatActivity {
                             Log.e("onResponse: ", answer);
                             Log.e("onResponse: ", wrong1);
                             Log.e("onResponse: ", wrong2);
-                            //createTableEntry(question, answer);  // Feed each word into method to create a row entry for the word
+                            createQuestion(question, answer, wrong1, wrong2);  // Feed each word into method to create a row entry for the word
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -142,8 +140,136 @@ public class GameActivity extends AppCompatActivity {
         requestQueue.add(objectRequest);
     }
 
-    private void goHome() {
-        Intent intent = new Intent(GameActivity.this, MainActivity.class);
+    private void createQuestion(String question, final String answer, String wrong1, String wrong2) {
+        mAnswer1 = findViewById(R.id.ans1);
+        mAnswer2 = findViewById(R.id.ans2);
+        mAnswer3 = findViewById(R.id.ans3);
+
+        TextView texti = (TextView) findViewById(R.id.word);
+        texti.setText(question);
+
+        Integer tilfelli = (int) (Math.random()*3);
+        if(tilfelli==0){
+            mAnswer1.setText(answer);
+            mAnswer1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mAnswer1.setBackgroundColor(Color.GREEN);
+                    correct++;
+                    goToAnswer(Boolean.TRUE, answer);
+                }
+            });
+            mAnswer2.setText(wrong1);
+            mAnswer2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mAnswer2.setBackgroundColor(Color.RED);
+                    goToAnswer(Boolean.FALSE, answer);
+                }
+            });
+            mAnswer3.setText(wrong2);
+            mAnswer3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mAnswer3.setBackgroundColor(Color.RED);
+                    goToAnswer(Boolean.FALSE, answer);
+                }
+            });
+        }
+        else if(tilfelli==1) {
+            mAnswer1.setText(wrong1);
+            mAnswer1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mAnswer1.setBackgroundColor(Color.RED);
+                    goToAnswer(Boolean.FALSE, answer);
+                }
+            });
+            mAnswer2.setText(answer);
+            mAnswer2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mAnswer2.setBackgroundColor(Color.GREEN);
+                    correct++;
+                    goToAnswer(Boolean.TRUE, answer);
+                }
+            });
+            mAnswer3.setText(wrong2);
+            mAnswer3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mAnswer3.setBackgroundColor(Color.RED);
+                    goToAnswer(Boolean.FALSE, answer);
+                }
+            });
+        }
+        else if(tilfelli==2) {
+            mAnswer1.setText(wrong1);
+            mAnswer1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mAnswer1.setBackgroundColor(Color.RED);
+                    goToAnswer(Boolean.FALSE, answer);
+                }
+            });
+            mAnswer2.setText(wrong2);
+            mAnswer2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mAnswer2.setBackgroundColor(Color.RED);
+                    goToAnswer(Boolean.FALSE, answer);
+                }
+            });
+            mAnswer3.setText(answer);
+            mAnswer3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mAnswer3.setBackgroundColor(Color.GREEN);
+                    correct++;
+                    goToAnswer(Boolean.TRUE, answer);
+                }
+            });
+        }
+    }
+
+    private void goToAnswer(final Boolean answer, final String correctanswer) {
+        TextView texti = (TextView) findViewById(R.id.answer);
+        nextQuestion = findViewById(R.id.nextQuestion);
+
+        if(answer){
+            texti.setText("Correct");
+            nextQuestion.setVisibility(View.VISIBLE);
+            nextQuestion.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    goToNextQuestion();
+                }
+            });
+        }
+        else {
+            String wronganswer = "Wrong! The correct answer is: " + correctanswer;
+            texti.setText(wronganswer);
+            nextQuestion.setVisibility(View.VISIBLE);
+            nextQuestion.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    goToNextQuestion();
+                }
+            });
+        }
+    }
+
+    private void goToNextQuestion() {
+        Intent i = new Intent(GameActivity.this, GameActivity.class);
+        i.putExtra("category", category);
+        i.putExtra("level", level);
+        i.putExtra("correct",correct);
+        System.out.println("FJÖLDI réttra svara er: " + correct);
+        startActivity(i);
+    }
+
+    private void goMain() {
+        Intent intent = new Intent(GameActivity.this, FinishedgameActivity.class);
         startActivity(intent);
     }
 
