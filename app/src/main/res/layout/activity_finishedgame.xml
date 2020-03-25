@@ -42,6 +42,15 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/userScoreText"
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Check you score:"
