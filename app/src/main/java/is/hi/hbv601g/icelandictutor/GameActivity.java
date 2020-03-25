@@ -30,6 +30,7 @@ public class GameActivity extends AppCompatActivity {
     private Integer correct;
     private String category;
     private String level;
+    private Integer total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class GameActivity extends AppCompatActivity {
             category = extras.getString("category");
             level = extras.getString("level");
             correct = extras.getInt("correct");
+            total = extras.getInt("total");
 
             Log.e( "onCreate: ", category);
             Log.e( "onCreate: ", level);
@@ -50,41 +52,9 @@ public class GameActivity extends AppCompatActivity {
             }
             else {
                 getQuestion();
+                total++;
             }
         }
-
-        /*
-        TextView c = (TextView) findViewById(R.id.categorySelect);
-        TextView l = (TextView) findViewById(R.id.levelSelect);
-
-        if(category.equals("1")){
-            //c.setText("Animals");
-        }
-        else if(category.equals("2")){
-            //c.setText("Clothes");
-        }
-
-        if(level.equals("1")){
-            //l.setText("Level 1");
-        }
-        else if(level.equals("2")){
-            //l.setText("Level 2");
-        }
-        */
-
-
-/*
-        mBackButton = findViewById(R.id.backButton);
-        mBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goHome();
-            }
-        });
-
- */
-
-
     }
 
     private void getQuestion() {
@@ -144,6 +114,9 @@ public class GameActivity extends AppCompatActivity {
         mAnswer1 = findViewById(R.id.ans1);
         mAnswer2 = findViewById(R.id.ans2);
         mAnswer3 = findViewById(R.id.ans3);
+
+        TextView nrspurning = (TextView) findViewById(R.id.questionNumber);
+        nrspurning.setText("Question " + total);
 
         TextView texti = (TextView) findViewById(R.id.word);
         texti.setText(question);
@@ -264,12 +237,15 @@ public class GameActivity extends AppCompatActivity {
         i.putExtra("category", category);
         i.putExtra("level", level);
         i.putExtra("correct",correct);
-        System.out.println("FJÖLDI réttra svara er: " + correct);
+        i.putExtra("total",total);
+        // System.out.println("FJÖLDI réttra svara er: " + correct);
         startActivity(i);
     }
 
     private void goMain() {
         Intent intent = new Intent(GameActivity.this, FinishedgameActivity.class);
+        intent.putExtra("correct",correct); //scoreeeee
+        intent.putExtra("total",total);
         startActivity(intent);
     }
 

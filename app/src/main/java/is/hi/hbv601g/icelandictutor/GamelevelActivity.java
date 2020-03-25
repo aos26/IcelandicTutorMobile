@@ -66,6 +66,7 @@ public class GamelevelActivity extends AppCompatActivity {
         i.putExtra("category", category);
         i.putExtra("level", level);
         i.putExtra("correct",0);
+        i.putExtra("total",0);
         startActivity(i);
     }
 
