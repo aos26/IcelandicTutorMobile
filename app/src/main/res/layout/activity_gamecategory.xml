@@ -6,37 +6,55 @@
     android:layout_height="match_parent"
     tools:context=".GamecategoryActivity">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/category1"
+        <LinearLayout
+            android:id="@+id/dictionarySelection_form"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="category"
-            android:text="@string/animals" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/category2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="category"
-            android:text="@string/store" />
+            <TextView
+                android:id="@+id/welcomeDictionary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/welcome_to_the_game"
+                android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/category3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="category"
-            android:text="@string/clothes" />
+            <TextView
+                android:id="@+id/pleaseSelect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/please_select_a_category_you_want_to_play_a_game_in"
+                android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/home"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="home"
-            android:text="@string/home" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/animalButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:background="#66C53C"
+                android:text="@string/animals" />
+
+            <Button
+                android:id="@+id/clothesButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#3CA5C5"
+                android:text="@string/clothes" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/back"
+        app:layout_constraintBottom_toBottomOf="@id/card"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

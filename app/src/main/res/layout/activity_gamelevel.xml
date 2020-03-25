@@ -6,4 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".GamelevelActivity">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/dictionarySelection_form"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/welcomeDictionary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/you_have_selected_the_category"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/categorySelected"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/pleaseSelect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/please_select_a_level_you_want_to_play_a_game_in"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/level1Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:background="#66C53C"
+                android:text="@string/level1" />
+
+            <Button
+                android:id="@+id/level2Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#3CA5C5"
+                android:text="@string/level2" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/back"
+        app:layout_constraintBottom_toBottomOf="@id/card"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
