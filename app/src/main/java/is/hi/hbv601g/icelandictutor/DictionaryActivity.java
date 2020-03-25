@@ -84,6 +84,7 @@ public class DictionaryActivity extends AppCompatActivity {
         String urlCat = value;  // Fetch words from category that user selected
         String urlLvl = "&lvl_id=1";
         String url = urlStart + urlCat + urlLvl;
+        System.out.println(url);
 
         JsonArrayRequest objectRequest = new JsonArrayRequest(
                 Request.Method.GET,

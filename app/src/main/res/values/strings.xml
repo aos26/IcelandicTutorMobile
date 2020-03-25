@@ -13,4 +13,14 @@
     <string name="store">Store</string>
     <string name="clothes">Clothes</string>
     <string name="home">home</string>
+    <string name="back">Back</string>
+    <string name="welcome_to_the_dictionary">Welcome to the dictionary!</string>
+    <string name="please_select_a_category_below_to_view_vocabulary">Please select a category below to view vocabulary</string>
+    <string name="welcome_to_the_game">Welcome to the Game!</string>
+    <string name="please_select_a_category_you_want_to_play_a_game_in">Please select a category you want to play a game in</string>
+    <string name="level1">Level 1</string>
+    <string name="level2">Level 2</string>
+    <string name="you_have_selected_the_category">You have selected the category:</string>
+    <string name="please_select_a_level_you_want_to_play_a_game_in">Please select a level you want to play a game in</string>
+    <string name="next_question">Next question</string>
 </resources>

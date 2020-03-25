@@ -90,23 +90,25 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // Go to Location
     public void goToLocation() {
         Intent intent = new Intent(MainActivity.this, LocationActivity.class);
         startActivity(intent);
     }
 
-    // Go to dictionary view
+    // Go to category selection
     public void goToGameselection(){
         Intent intent = new Intent(MainActivity.this, GamecategoryActivity.class);
         startActivity(intent);
     }
 
+    // Go to Articles
     public void goToArticles() {
         Intent intent = new Intent(MainActivity.this, ArticleActivity.class);
         startActivity(intent);
     }
 
-    // Go to dictionary view
+    // Go to Flashcards
     public void goToFlashcards(){
         Intent intent = new Intent(MainActivity.this, FlashcardActivity.class);
         startActivity(intent);
