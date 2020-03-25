@@ -23,4 +23,6 @@
     <string name="you_have_selected_the_category">You have selected the category:</string>
     <string name="please_select_a_level_you_want_to_play_a_game_in">Please select a level you want to play a game in</string>
     <string name="next_question">Next question</string>
+    <string name="select_the_correct_translation">Select the correct translation</string>
+    <string name="congratulations_you_just_finished_the_game">Congratulations, you just finished the game!</string>
 </resources>
