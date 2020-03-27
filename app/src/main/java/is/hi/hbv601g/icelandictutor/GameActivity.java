@@ -2,7 +2,9 @@ package is.hi.hbv601g.icelandictutor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +17,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -32,6 +35,9 @@ public class GameActivity extends AppCompatActivity {
     private String level;
     private Integer total;
 
+    private int currScore = 0;
+    private int pointsEarned;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,17 +50,94 @@ public class GameActivity extends AppCompatActivity {
             correct = extras.getInt("correct");
             total = extras.getInt("total");
 
-            Log.e( "onCreate: ", category);
-            Log.e( "onCreate: ", level);
+            Log.e("onCreate: ", category);
+            Log.e("onCreate: ", level);
 
             if (correct == 10) {
-                goMain();
-            }
-            else {
+                getCurrUserScore();
+            } else {
                 getQuestion();
                 total++;
             }
         }
+    }
+
+    private void calculateScore(int incorrect, int currScore) {
+        int plusMod = correct * 10;
+        int minusMod = incorrect * (-5);
+        int totalScore = plusMod + minusMod;
+        if (totalScore < 0) {
+            totalScore = 0;
+            return;
+        }
+        pointsEarned = totalScore;
+        Log.e("calcScore: pointsearned", Integer.toString(pointsEarned));
+        Log.e("calculateScore:for user", Integer.toString(currScore) );
+        Context context = getApplicationContext();
+        SharedPreferences sharedPreferences = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
+
+        long userID = sharedPreferences.getLong("userID", 0);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        Log.e("calculateScore total: ", Integer.toString(totalScore));
+        totalScore += currScore;
+        Log.e("calculateScore total2: ", Integer.toString(totalScore));
+        String url = "https://icelandic-tutor.herokuapp.com/updateScore?id=" + userID + "&newScore=" + totalScore;
+        JsonObjectRequest objectRequest = new JsonObjectRequest(
+                Request.Method.PUT,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.e("Rest Update response", response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Rest update error", error.toString());
+                    }
+                }
+        );
+        requestQueue.add(objectRequest);
+        goMain();
+    }
+
+    private void getCurrUserScore() {
+        Context context = getApplicationContext();
+        SharedPreferences sharedPreferences = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
+        final int incorrect = total - correct;
+
+        long userID = sharedPreferences.getLong("userID", 0);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        Log.e("getCurrUserScore: ", Long.toString(userID));
+        String url = "https://icelandic-tutor.herokuapp.com/user?user_id=" + userID;
+        JsonObjectRequest objectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.e("Rest Score response", response.toString());
+                        try {
+                            currScore = response.getInt("score");
+                            Log.e("onResponse currScore: ", Integer.toString(currScore));
+                            calculateScore(incorrect, currScore);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Rest error", error.toString());
+                    }
+                }
+        );
+        requestQueue.add(objectRequest);
     }
 
     private void getQuestion() {
@@ -65,7 +148,6 @@ public class GameActivity extends AppCompatActivity {
         String urlCat = category;  // Fetch words from category that user selected
         String urlLvl = "&lvl_id=" + level;
         String url = urlStart + urlCat + urlLvl;
-        System.out.println(url);
 
         JsonArrayRequest objectRequest = new JsonArrayRequest(
                 Request.Method.GET,
@@ -80,7 +162,6 @@ public class GameActivity extends AppCompatActivity {
                         Integer lengd = response.length();
                         Integer spurning = (int) (Math.random()*lengd);
                         System.out.println(spurning);
-
 
                         JSONObject jsonobject = null;
                         try {
@@ -97,7 +178,6 @@ public class GameActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -129,6 +209,8 @@ public class GameActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     mAnswer1.setBackgroundColor(Color.GREEN);
                     correct++;
+                    mAnswer2.setClickable(false);
+                    mAnswer3.setClickable(false);
                     goToAnswer(Boolean.TRUE, answer);
                 }
             });
@@ -137,6 +219,8 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     mAnswer2.setBackgroundColor(Color.RED);
+                    mAnswer1.setClickable(false);
+                    mAnswer3.setClickable(false);
                     goToAnswer(Boolean.FALSE, answer);
                 }
             });
@@ -145,6 +229,8 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     mAnswer3.setBackgroundColor(Color.RED);
+                    mAnswer1.setClickable(false);
+                    mAnswer2.setClickable(false);
                     goToAnswer(Boolean.FALSE, answer);
                 }
             });
@@ -155,6 +241,8 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     mAnswer1.setBackgroundColor(Color.RED);
+                    mAnswer2.setClickable(false);
+                    mAnswer3.setClickable(false);
                     goToAnswer(Boolean.FALSE, answer);
                 }
             });
@@ -164,6 +252,8 @@ public class GameActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     mAnswer2.setBackgroundColor(Color.GREEN);
                     correct++;
+                    mAnswer1.setClickable(false);
+                    mAnswer3.setClickable(false);
                     goToAnswer(Boolean.TRUE, answer);
                 }
             });
@@ -172,6 +262,8 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     mAnswer3.setBackgroundColor(Color.RED);
+                    mAnswer2.setClickable(false);
+                    mAnswer1.setClickable(false);
                     goToAnswer(Boolean.FALSE, answer);
                 }
             });
@@ -182,6 +274,8 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     mAnswer1.setBackgroundColor(Color.RED);
+                    mAnswer2.setClickable(false);
+                    mAnswer3.setClickable(false);
                     goToAnswer(Boolean.FALSE, answer);
                 }
             });
@@ -190,6 +284,8 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     mAnswer2.setBackgroundColor(Color.RED);
+                    mAnswer1.setClickable(false);
+                    mAnswer3.setClickable(false);
                     goToAnswer(Boolean.FALSE, answer);
                 }
             });
@@ -199,6 +295,8 @@ public class GameActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     mAnswer3.setBackgroundColor(Color.GREEN);
                     correct++;
+                    mAnswer1.setClickable(false);
+                    mAnswer2.setClickable(false);
                     goToAnswer(Boolean.TRUE, answer);
                 }
             });
@@ -246,6 +344,8 @@ public class GameActivity extends AppCompatActivity {
         Intent intent = new Intent(GameActivity.this, FinishedgameActivity.class);
         intent.putExtra("correct",correct); //scoreeeee
         intent.putExtra("total",total);
+        Log.e("goMain: pointsearned", Integer.toString(pointsEarned));
+        intent.putExtra("userScore", pointsEarned);
         startActivity(intent);
     }
 
