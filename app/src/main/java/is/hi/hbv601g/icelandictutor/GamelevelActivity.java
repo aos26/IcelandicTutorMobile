@@ -109,13 +109,13 @@ public class GamelevelActivity extends AppCompatActivity {
                         Log.e("Rest Score response", response.toString());
 
                         try {
-                            Boolean animal1 = response.isNull("animals_lvl_1") ? null : response.getBoolean("animals_lvl_1");
-                            Boolean animal2 = response.isNull("animals_lvl_2") ? null : response.getBoolean("animals_lvl_2");
-                            Boolean animal3 = response.isNull("animals_lvl_3") ? null : response.getBoolean("animals_lvl_3");
+                            Boolean animal1 = response.isNull("animals_lvl_1") ? false : response.getBoolean("animals_lvl_1");
+                            Boolean animal2 = response.isNull("animals_lvl_2") ? false : response.getBoolean("animals_lvl_2");
+                            Boolean animal3 = response.isNull("animals_lvl_3") ? false : response.getBoolean("animals_lvl_3");
 
-                            Boolean clothes1 = response.isNull("clothes_lvl_1") ? null : response.getBoolean("clothes_lvl_1");
-                            Boolean clothes2 = response.isNull("clothes_lvl_2") ? null : response.getBoolean("clothes_lvl_2");
-                            Boolean clothes3 = response.isNull("clothes_lvl_3") ? null : response.getBoolean("clothes_lvl_3");
+                            Boolean clothes1 = response.isNull("clothes_lvl_1") ? false : response.getBoolean("clothes_lvl_1");
+                            Boolean clothes2 = response.isNull("clothes_lvl_2") ? false : response.getBoolean("clothes_lvl_2");
+                            Boolean clothes3 = response.isNull("clothes_lvl_3") ? false : response.getBoolean("clothes_lvl_3");
 
                             Log.e("onProgressv: ", value);
 
@@ -131,7 +131,7 @@ public class GamelevelActivity extends AppCompatActivity {
                                 }*/
                             }
 
-                            if(value.equals("2")) {
+                            else if(value.equals("2")) {
                                 if(clothes1) {
                                     mlevel1Button.setBackgroundColor(Color.GREEN);
                                 }
