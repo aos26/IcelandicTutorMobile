@@ -27,6 +27,8 @@ public class FinishedgameActivity extends AppCompatActivity {
     private TextView mCurrUserText;
     private int gamescore;
     private Integer total;
+    private String level;
+    private String category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,8 @@ public class FinishedgameActivity extends AppCompatActivity {
             Integer correct = extras.getInt("correct"); //scoreeeee
             total = extras.getInt("total");
             gamescore = extras.getInt("userScore");
+            level = extras.getString("level");
+            category = extras.getString("category");
 
             TextView texti = (TextView) findViewById(R.id.word);
             texti.setText("You answered 10 out of " + total + " questions correctly");
@@ -46,6 +50,7 @@ public class FinishedgameActivity extends AppCompatActivity {
             mCurrUserText.setText("You earned " + gamescore + " points");
         }
 
+        updateProgress();
 
         // go to dictionary
         mDictionaryButton = findViewById(R.id.dictButton);
@@ -65,6 +70,34 @@ public class FinishedgameActivity extends AppCompatActivity {
                 goToScoreboard();
             }
         });
+    }
+
+    public void updateProgress() {
+        Context context = getApplicationContext();
+        SharedPreferences sharedPreferences = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
+
+        long userID = sharedPreferences.getLong("userID", 0);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        String url = "https://icelandic-tutor.herokuapp.com/updateProgress?user_id=" + userID + "&cat_id=" + category + "&lvl_id=" + level;
+        JsonObjectRequest objectRequest = new JsonObjectRequest(
+                Request.Method.PUT,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.e("Rest Update response", response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Rest update error", error.toString());
+                    }
+                }
+        );
+        requestQueue.add(objectRequest);
     }
 
     // Go to scoreboard view
