@@ -56,6 +56,12 @@
                 android:layout_height="wrap_content"
                 android:background="#3CA5C5"
                 android:text="@string/level2" />
+
+            <Button
+                android:id="@+id/level3Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/level3" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

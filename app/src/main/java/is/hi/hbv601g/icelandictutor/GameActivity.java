@@ -5,11 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -23,6 +29,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.net.URL;
 
 public class GameActivity extends AppCompatActivity {
     private Button mAnswer1;
@@ -61,7 +70,7 @@ public class GameActivity extends AppCompatActivity {
             }
         }
     }
-
+    // Update users' score
     private void calculateScore(int incorrect, int currScore) {
         int plusMod = correct * 10;
         int minusMod = incorrect * (-5);
@@ -101,9 +110,9 @@ public class GameActivity extends AppCompatActivity {
                 }
         );
         requestQueue.add(objectRequest);
-        goMain();
+        goFinish();
     }
-
+    // get users' score
     private void getCurrUserScore() {
         Context context = getApplicationContext();
         SharedPreferences sharedPreferences = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
@@ -139,7 +148,7 @@ public class GameActivity extends AppCompatActivity {
         );
         requestQueue.add(objectRequest);
     }
-
+    // get a new question
     private void getQuestion() {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
@@ -166,15 +175,17 @@ public class GameActivity extends AppCompatActivity {
                         JSONObject jsonobject = null;
                         try {
                             jsonobject = response.getJSONObject(spurning);
-                            String question = jsonobject.getString("questionWord");
+                            String question = "";
+                            if(level.equals("3")){
+                                question = jsonobject.getString("question_image");
+                            }
+                            else{
+                                question = jsonobject.getString("questionWord");
+                            }
                             String answer = jsonobject.getString("answer");
                             String wrong1 = jsonobject.getString("wrongAnswer1");
                             String wrong2 = jsonobject.getString("wrongAnswer2");
-                            Log.e("onResponse: ", question);
-                            Log.e("onResponse: ", answer);
-                            Log.e("onResponse: ", wrong1);
-                            Log.e("onResponse: ", wrong2);
-                            createQuestion(question, answer, wrong1, wrong2);  // Feed each word into method to create a row entry for the word
+                            createQuestion(question, answer, wrong1, wrong2); // Feed each word into method to create a row entry for the word
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -191,15 +202,55 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void createQuestion(String question, final String answer, String wrong1, String wrong2) {
-        mAnswer1 = findViewById(R.id.ans1);
-        mAnswer2 = findViewById(R.id.ans2);
-        mAnswer3 = findViewById(R.id.ans3);
-
         TextView nrspurning = (TextView) findViewById(R.id.questionNumber);
         nrspurning.setText("Question " + total);
 
-        TextView texti = (TextView) findViewById(R.id.word);
-        texti.setText(question);
+        if(level.equals("3")){
+            new DownloadImageTask((ImageView) findViewById(R.id.imageView)).execute(question);
+            TextView texti = (TextView) findViewById(R.id.word);
+            texti.setVisibility(View.INVISIBLE); // hide textView
+        }
+        else {
+            TextView texti = (TextView) findViewById(R.id.word);
+            texti.setText(question);
+            ImageView mynd = findViewById(R.id.imageView);
+            mynd.setVisibility(View.INVISIBLE); // hide imageView
+        }
+
+        valmoguleikar(answer, wrong1, wrong2);
+
+
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
+
+    private void valmoguleikar(final String answer, String wrong1, String wrong2) {
+        mAnswer1 = findViewById(R.id.ans1);
+        mAnswer2 = findViewById(R.id.ans2);
+        mAnswer3 = findViewById(R.id.ans3);
 
         Integer tilfelli = (int) (Math.random()*3);
         if(tilfelli==0){
@@ -301,8 +352,14 @@ public class GameActivity extends AppCompatActivity {
                 }
             });
         }
+
     }
 
+
+
+
+
+    // show correct answer
     private void goToAnswer(final Boolean answer, final String correctanswer) {
         TextView texti = (TextView) findViewById(R.id.answer);
         nextQuestion = findViewById(R.id.nextQuestion);
@@ -329,18 +386,18 @@ public class GameActivity extends AppCompatActivity {
             });
         }
     }
-
+    // go to next question
     private void goToNextQuestion() {
         Intent i = new Intent(GameActivity.this, GameActivity.class);
         i.putExtra("category", category);
         i.putExtra("level", level);
         i.putExtra("correct",correct);
         i.putExtra("total",total);
-        // System.out.println("FJÖLDI réttra svara er: " + correct);
         startActivity(i);
     }
 
-    private void goMain() {
+    // go to the finishing page
+    private void goFinish() {
         Intent intent = new Intent(GameActivity.this, FinishedgameActivity.class);
         intent.putExtra("correct",correct); //scoreeeee
         intent.putExtra("total",total);
