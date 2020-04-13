@@ -1,12 +1,29 @@
 package is.hi.hbv601g.icelandictutor;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private Button mScoreButton;
@@ -16,10 +33,20 @@ public class MainActivity extends AppCompatActivity {
     private Button mFlashcardButton;
     private Button mLocationButton;
 
+    //used for register alarm manager
+    PendingIntent pendingIntent;
+    //used to store running alarmmanager instance
+    AlarmManager alarmManager;
+    //Callback function for Alarmmanager event
+    BroadcastReceiver mReceiver;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         // go to dictionary
         mDictionaryButton = findViewById(R.id.dictButton);
@@ -113,4 +140,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, FlashcardActivity.class);
         startActivity(intent);
     }
+
+    // notifications
+
 }

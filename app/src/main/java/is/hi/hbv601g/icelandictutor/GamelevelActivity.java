@@ -26,6 +26,7 @@ import org.json.JSONObject;
 public class GamelevelActivity extends AppCompatActivity {
     private Button mlevel1Button;
     private Button mlevel2Button;
+    private Button mlevel3Button;
     private Button mBackButton;
     private String value;
 
@@ -49,6 +50,7 @@ public class GamelevelActivity extends AppCompatActivity {
 
         mlevel1Button = findViewById(R.id.level1Button);
         mlevel2Button = findViewById(R.id.level2Button);
+        mlevel3Button = findViewById(R.id.level3Button);
         mBackButton = findViewById(R.id.backButton);
 
         getUserProgress();
@@ -64,6 +66,13 @@ public class GamelevelActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 goToGame(value,"2");
+            }
+        });
+
+        mlevel3Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToGame(value,"3");
             }
         });
 
