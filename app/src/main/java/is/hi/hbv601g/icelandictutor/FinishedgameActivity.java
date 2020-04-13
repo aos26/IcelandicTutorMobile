@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -109,6 +112,72 @@ public class FinishedgameActivity extends AppCompatActivity {
     // Go to dictionary view
     public void goToDictionarySelection(){
         Intent intent = new Intent(FinishedgameActivity.this, DictionarySelectionActivity.class);
+        startActivity(intent);
+    }
+
+    // menubar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.example_menu, menu);
+        return true;
+    }
+    // on click listeners in menubar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu0:
+                goToMain();
+                return true;
+            case R.id.menu1:
+                goToDictionarySelection();
+                return true;
+            case R.id.menu2:
+                goToGameselection();
+                return true;
+            case R.id.menu3:
+                goToScoreboard();
+                return true;
+            case R.id.menu4:
+                goToFlashcards();
+                return true;
+            case R.id.menu5:
+                goToArticles();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+
+    // Go to Location
+    public void goToLocation() {
+        Intent intent = new Intent(FinishedgameActivity.this, LocationActivity.class);
+        startActivity(intent);
+    }
+
+    // Go to category selection
+    public void goToGameselection(){
+        Intent intent = new Intent(FinishedgameActivity.this, GamecategoryActivity.class);
+        startActivity(intent);
+    }
+
+    // Go to Articles
+    public void goToArticles() {
+        Intent intent = new Intent(FinishedgameActivity.this, ArticleActivity.class);
+        startActivity(intent);
+    }
+
+    // Go to Flashcards
+    public void goToFlashcards(){
+        Intent intent = new Intent(FinishedgameActivity.this, FlashcardActivity.class);
+        startActivity(intent);
+    }
+
+    // Go to Main Page
+    public void goToMain(){
+        Intent intent = new Intent(FinishedgameActivity.this, MainActivity.class);
         startActivity(intent);
     }
 }

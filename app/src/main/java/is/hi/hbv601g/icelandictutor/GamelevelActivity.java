@@ -8,6 +8,9 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -166,5 +169,83 @@ public class GamelevelActivity extends AppCompatActivity {
                 }
         );
         requestQueue.add(objectRequest);
+    }
+
+
+    // menubar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.example_menu, menu);
+        return true;
+    }
+    // on click listeners in menubar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu0:
+                goToMain();
+                return true;
+            case R.id.menu1:
+                goToDictionarySelection();
+                return true;
+            case R.id.menu2:
+                goToGameselection();
+                return true;
+            case R.id.menu3:
+                goToScoreboard();
+                return true;
+            case R.id.menu4:
+                goToFlashcards();
+                return true;
+            case R.id.menu5:
+                goToArticles();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    // Go to scoreboard view
+    public void goToScoreboard() {
+        Intent intent = new Intent(GamelevelActivity.this, ScoreboardActivity.class);
+        startActivity(intent);
+    }
+
+    // Go to dictionary view
+    public void goToDictionarySelection(){
+        Intent intent = new Intent(GamelevelActivity.this, DictionarySelectionActivity.class);
+        startActivity(intent);
+    }
+
+    // Go to Location
+    public void goToLocation() {
+        Intent intent = new Intent(GamelevelActivity.this, LocationActivity.class);
+        startActivity(intent);
+    }
+
+    // Go to category selection
+    public void goToGameselection(){
+        Intent intent = new Intent(GamelevelActivity.this, GamecategoryActivity.class);
+        startActivity(intent);
+    }
+
+    // Go to Articles
+    public void goToArticles() {
+        Intent intent = new Intent(GamelevelActivity.this, ArticleActivity.class);
+        startActivity(intent);
+    }
+
+    // Go to Flashcards
+    public void goToFlashcards(){
+        Intent intent = new Intent(GamelevelActivity.this, FlashcardActivity.class);
+        startActivity(intent);
+    }
+
+    // Go to Main Page
+    public void goToMain(){
+        Intent intent = new Intent(GamelevelActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }

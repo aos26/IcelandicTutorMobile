@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/menu0"
+        android:title="Home"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/menu1"
+        android:title="Dictionary"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/menu2"
+        android:title="Game"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/menu3"
+        android:title="Scoreboard"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/menu4"
+        android:title="Flashcards"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/menu5"
+        android:title="Articles"
+        app:showAsAction="never"/>
+
+
+</menu>
