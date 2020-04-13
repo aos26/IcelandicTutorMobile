@@ -2,6 +2,9 @@ package is.hi.hbv601g.icelandictutor;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -54,4 +57,76 @@ public class DictionarySelectionActivity extends AppCompatActivity {
         Intent intent = new Intent(DictionarySelectionActivity.this, MainActivity.class);
         startActivity(intent);
     }
+
+    // menubar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.example_menu, menu);
+        return true;
+    }
+    // on click listeners in menubar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu0:
+                goToMain();
+                return true;
+            case R.id.menu1:
+                goToDictionarySelection();
+                return true;
+            case R.id.menu2:
+                goToGameselection();
+                return true;
+            case R.id.menu3:
+                goToScoreboard();
+                return true;
+            case R.id.menu4:
+                goToFlashcards();
+                return true;
+            case R.id.menu5:
+                goToArticles();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    // Go to scoreboard view
+    public void goToScoreboard() {
+        Intent intent = new Intent(DictionarySelectionActivity.this, ScoreboardActivity.class);
+        startActivity(intent);
+    }
+
+    // Go to dictionary view
+    public void goToDictionarySelection(){
+        Intent intent = new Intent(DictionarySelectionActivity.this, DictionarySelectionActivity.class);
+        startActivity(intent);
+    }
+
+    // Go to Location
+    public void goToLocation() {
+        Intent intent = new Intent(DictionarySelectionActivity.this, LocationActivity.class);
+        startActivity(intent);
+    }
+
+    // Go to category selection
+    public void goToGameselection(){
+        Intent intent = new Intent(DictionarySelectionActivity.this, GamecategoryActivity.class);
+        startActivity(intent);
+    }
+
+    // Go to Articles
+    public void goToArticles() {
+        Intent intent = new Intent(DictionarySelectionActivity.this, ArticleActivity.class);
+        startActivity(intent);
+    }
+
+    // Go to Flashcards
+    public void goToFlashcards(){
+        Intent intent = new Intent(DictionarySelectionActivity.this, FlashcardActivity.class);
+        startActivity(intent);
+    }
+
 }

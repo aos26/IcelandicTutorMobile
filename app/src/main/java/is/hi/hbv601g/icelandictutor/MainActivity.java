@@ -1,5 +1,6 @@
 package is.hi.hbv601g.icelandictutor;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
@@ -15,6 +16,8 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -104,6 +107,40 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    // menubar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.example_menu, menu);
+        return true;
+    }
+    // on click listeners in menubar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu0:
+                goToMain();
+                return true;
+            case R.id.menu1:
+                goToDictionarySelection();
+                return true;
+            case R.id.menu2:
+                goToGameselection();
+                return true;
+            case R.id.menu3:
+                goToScoreboard();
+                return true;
+            case R.id.menu4:
+                goToFlashcards();
+                return true;
+            case R.id.menu5:
+                goToArticles();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     // Go to scoreboard view
     public void goToScoreboard() {
@@ -141,6 +178,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // notifications
+    // Go to Main Page
+    public void goToMain(){
+        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
 
 }
