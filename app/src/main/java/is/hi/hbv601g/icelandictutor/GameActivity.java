@@ -70,6 +70,7 @@ public class GameActivity extends AppCompatActivity {
             }
         }
     }
+
     // Update users' score
     private void calculateScore(int incorrect, int currScore) {
         int plusMod = correct * 10;
@@ -403,6 +404,8 @@ public class GameActivity extends AppCompatActivity {
         intent.putExtra("total",total);
         Log.e("goMain: pointsearned", Integer.toString(pointsEarned));
         intent.putExtra("userScore", pointsEarned);
+        intent.putExtra("category", category);
+        intent.putExtra("level", level);
         startActivity(intent);
     }
 
