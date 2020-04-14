@@ -49,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         // go to dictionary
         mDictionaryButton = findViewById(R.id.dictButton);
         mDictionaryButton.setOnClickListener(new View.OnClickListener() {
@@ -59,8 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 goToDictionarySelection();
             }
         });
-
-
+        
         // go to Score
         mScoreButton = findViewById(R.id.scoreButton);
         mScoreButton.setOnClickListener(new View.OnClickListener() {
@@ -84,16 +81,7 @@ public class MainActivity extends AppCompatActivity {
         mArticleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToArticles();
-            }
-        });
-
-        // go to location
-        mLocationButton = findViewById(R.id.locationButton);
-        mLocationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToLocation();
+                goToArticleSelection();
             }
         });
 
@@ -134,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 goToFlashcards();
                 return true;
             case R.id.menu5:
-                goToArticles();
+                goToArticleSelection();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -167,8 +155,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Go to Articles
-    public void goToArticles() {
-        Intent intent = new Intent(MainActivity.this, ArticleActivity.class);
+    public void goToArticleSelection() {
+        Intent intent = new Intent(MainActivity.this, ArticleSelectionActivity.class);
         startActivity(intent);
     }
 

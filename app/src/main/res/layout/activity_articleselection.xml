@@ -18,11 +18,11 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/welcomeDictionary"
+                android:id="@+id/welcomeArticles"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/welcome_to_the_dictionary"
+                android:text="Articles"
                 android:textSize="20sp" />
 
             <TextView
@@ -30,23 +30,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/please_select_a_category_below_to_view_vocabulary"
+                android:text="Please select an article below"
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/animalButton"
+                android:id="@+id/Theater"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:background="#66C53C"
-                android:text="@string/animals" />
+                android:text="Theater under Arnarh'oll" />
 
             <Button
-                android:id="@+id/clothesButton"
+                android:id="@+id/HildurWins"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#3CA5C5"
-                android:text="@string/clothes" />
+                android:text="Hildur wins Oscar for score to Joker" />
+
+            <Button
+                android:id="@+id/visitReykjavik"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Website makes visiting Reykjavik easy" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
