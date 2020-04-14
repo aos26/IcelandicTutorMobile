@@ -157,7 +157,7 @@ public class DictionaryActivity extends AppCompatActivity {
                 goToFlashcards();
                 return true;
             case R.id.menu5:
-                goToArticles();
+                goToArticleSelection();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -190,8 +190,8 @@ public class DictionaryActivity extends AppCompatActivity {
     }
 
     // Go to Articles
-    public void goToArticles() {
-        Intent intent = new Intent(DictionaryActivity.this, ArticleActivity.class);
+    public void goToArticleSelection() {
+        Intent intent = new Intent(DictionaryActivity.this, ArticleSelectionActivity.class);
         startActivity(intent);
     }
 

@@ -23,25 +23,19 @@
             android:id="@+id/categoryButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="@string/play_a_game" />
+            android:text="Category quiz" />
 
         <Button
             android:id="@+id/dictButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="@string/learn_some_words_in_the_dictionary" />
+            android:text="Check out the dictionary" />
 
         <Button
             android:id="@+id/scoreButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:text="@string/check_your_score" />
-
-        <Button
-            android:id="@+id/locationButton"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="@string/play_a_game_based_on_your_location" />
 
         <Button
             android:id="@+id/flashcardButton"

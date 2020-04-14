@@ -43,7 +43,7 @@ public class FlashcardActivity extends AppCompatActivity {
                 goToFlashcards();
                 return true;
             case R.id.menu5:
-                goToArticles();
+                goToArticleSelection();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -76,7 +76,7 @@ public class FlashcardActivity extends AppCompatActivity {
     }
 
     // Go to Articles
-    public void goToArticles() {
+    public void goToArticleSelection() {
         Intent intent = new Intent(FlashcardActivity.this, ArticleActivity.class);
         startActivity(intent);
     }

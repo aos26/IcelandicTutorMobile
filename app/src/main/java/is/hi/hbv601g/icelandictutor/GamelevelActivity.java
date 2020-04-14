@@ -138,9 +138,9 @@ public class GamelevelActivity extends AppCompatActivity {
                                 if(animal2) {
                                     mlevel2Button.setBackgroundColor(Color.GREEN);
                                 }
-                                /*if(animal3) {
-
-                                }*/
+                                if(animal3) {
+                                    mlevel3Button.setBackgroundColor(Color.GREEN);
+                                }
                             }
 
                             else if(value.equals("2")) {
@@ -150,12 +150,11 @@ public class GamelevelActivity extends AppCompatActivity {
                                 if(clothes2) {
                                     mlevel2Button.setBackgroundColor(Color.GREEN);
                                 }
-                                /*if(clothes3) {
-
-                                }*/
+                                if(clothes3) {
+                                    mlevel3Button.setBackgroundColor(Color.GREEN);
+                                }
                             }
 
-                            //Log.e("onResponse: ", score);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -199,7 +198,7 @@ public class GamelevelActivity extends AppCompatActivity {
                 goToFlashcards();
                 return true;
             case R.id.menu5:
-                goToArticles();
+                goToArticleSelection();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -232,8 +231,8 @@ public class GamelevelActivity extends AppCompatActivity {
     }
 
     // Go to Articles
-    public void goToArticles() {
-        Intent intent = new Intent(GamelevelActivity.this, ArticleActivity.class);
+    public void goToArticleSelection() {
+        Intent intent = new Intent(GamelevelActivity.this, ArticleSelectionActivity.class);
         startActivity(intent);
     }
 

@@ -39,6 +39,7 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".DictionaryActivity" />
         <activity android:name=".DictionarySelectionActivity" />
+        <activity android:name="ArticleSelectionActivity"/>
         <activity android:name=".ScoreboardActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

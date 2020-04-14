@@ -200,7 +200,7 @@ public class ScoreboardActivity extends AppCompatActivity {
                 goToFlashcards();
                 return true;
             case R.id.menu5:
-                goToArticles();
+                goToArticleSelection();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -233,8 +233,8 @@ public class ScoreboardActivity extends AppCompatActivity {
     }
 
     // Go to Articles
-    public void goToArticles() {
-        Intent intent = new Intent(ScoreboardActivity.this, ArticleActivity.class);
+    public void goToArticleSelection() {
+        Intent intent = new Intent(ScoreboardActivity.this, ArticleSelectionActivity.class);
         startActivity(intent);
     }
 
