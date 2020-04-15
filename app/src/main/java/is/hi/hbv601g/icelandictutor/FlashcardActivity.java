@@ -2,18 +2,199 @@ package is.hi.hbv601g.icelandictutor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
 
 public class FlashcardActivity extends AppCompatActivity {
+
+    private AnimatorSet mSetRightOut;
+    private AnimatorSet mSetLeftIn;
+    private boolean mIsBackVisible = false;
+    private View mCardFrontLayout;
+    private View mCardBackLayout;
+    private Button mTurn;
+    private Button mCreateFlashcards;
+    private Integer mFlashcardNumber;
+    private Button mNextFlashcard;
+    private Button mDeleteFlashcard;
+    private FrameLayout mFlashcard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flashcard);
+
+        mFlashcardNumber = 0;
+
+        //create new flashcard
+        getFlashcard(mFlashcardNumber);
+
+        // flip flashcards
+        findViews();
+        loadAnimations();
+        changeCameraDistance();
+
+
+
+        mCreateFlashcards = findViewById(R.id.newFlashcard);
+        mCreateFlashcards.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToCreatFlashcards();
+            }
+        });
+
+        mNextFlashcard = findViewById(R.id.nextFlashcard);
+        mNextFlashcard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!mIsBackVisible) {
+                } else {
+                    mSetRightOut.setTarget(mCardBackLayout);
+                    mSetLeftIn.setTarget(mCardFrontLayout);
+                    mSetRightOut.start();
+                    mSetLeftIn.start();
+                    mIsBackVisible = false;
+                }
+                goToNextFlashcard(mFlashcardNumber);
+            }
+        });
+    }
+
+    // Go to dictionary view
+    public void goToCreatFlashcards(){
+        Intent intent = new Intent(FlashcardActivity.this, CreateFlashcardActivity.class);
+        startActivity(intent);
+    }
+    public void goToNextFlashcard(Integer number){
+        number++;
+        getFlashcard(number);
+    }
+
+
+
+
+    private void getFlashcard(final Integer numberFlashcard) {
+        Log.e("Tala: ", String.valueOf(numberFlashcard));
+        Context context = getApplicationContext();
+        SharedPreferences sharedPreferences = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
+
+
+        long userID = sharedPreferences.getLong("userID", 0);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "https://icelandic-tutor.herokuapp.com/flashcards?userid=" + userID;
+        Log.e("Flashcard: ", String.valueOf(userID));
+
+        JsonArrayRequest objectRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.e("Rest response", response.toString());
+                        JSONObject jsonobject = null;
+                        if(response.length()!=0) {
+                            Log.e("Lengd: ", String.valueOf(response.length()));
+
+                            try {
+                                jsonobject = response.getJSONObject(numberFlashcard);
+                                String icelandic = jsonobject.getString("icelandic");
+                                Log.e("Flashcard: ", icelandic);
+                                String english = jsonobject.getString("english");
+                                Log.e("Flashcard: ", english);
+                                TextView texti1 = (TextView) findViewById(R.id.textFront);
+                                texti1.setText(icelandic);
+                                TextView texti2 = (TextView) findViewById(R.id.textBack);
+                                texti2.setText(english);
+                                mFlashcard = findViewById(R.id.frameLayout);
+                                mFlashcard.setVisibility(View.VISIBLE);
+                                mNextFlashcard = findViewById(R.id.nextFlashcard);
+                                mNextFlashcard.setVisibility(View.VISIBLE);
+                                mDeleteFlashcard = findViewById(R.id.delete);
+                                mDeleteFlashcard.setVisibility(View.VISIBLE);
+                                mFlashcardNumber++;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Rest error", error.toString());
+                    }
+                }
+        );
+        requestQueue.add(objectRequest);
+    }
+
+
+
+
+
+
+
+    // flip flashcards
+    private void changeCameraDistance() {
+        int distance = 8000;
+        float scale = getResources().getDisplayMetrics().density * distance;
+        mCardFrontLayout.setCameraDistance(scale);
+        mCardBackLayout.setCameraDistance(scale);
+    }
+
+    private void loadAnimations() {
+        mSetRightOut = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.out_animation);
+        mSetLeftIn = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.in_animation);
+    }
+
+    private void findViews() {
+        mCardBackLayout = findViewById(R.id.card_back);
+        mCardFrontLayout = findViewById(R.id.card_front);
+    }
+
+    public void flipCard(View view) {
+        if (!mIsBackVisible) {
+            mSetRightOut.setTarget(mCardFrontLayout);
+            mSetLeftIn.setTarget(mCardBackLayout);
+            mSetRightOut.start();
+            mSetLeftIn.start();
+            mIsBackVisible = true;
+        } else {
+            mSetRightOut.setTarget(mCardBackLayout);
+            mSetLeftIn.setTarget(mCardFrontLayout);
+            mSetRightOut.start();
+            mSetLeftIn.start();
+            mIsBackVisible = false;
+        }
     }
 
     // menubar

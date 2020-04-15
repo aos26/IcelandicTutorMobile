@@ -6,4 +6,79 @@
     android:layout_height="match_parent"
     tools:context=".FlashcardActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/linearView">
+
+        <TextView
+            android:id="@+id/titleFlashcard"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:text="@string/create_a_new_flashcard"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="410dp">
+
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="flipCard"
+                android:visibility="gone">
+
+                <FrameLayout
+                    android:id="@+id/card_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <include layout="@layout/card_back" />
+
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/card_front"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <include
+                        layout="@layout/card_front"
+                        android:layout_height="459dp"
+                        tools:ignore="IncludeLayoutParam" />
+
+                </FrameLayout>
+
+            </FrameLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/nextFlashcard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/next_flashcard"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/delete"
+            android:visibility="gone"/>
+
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/newFlashcard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_a_new_flashcard"
+        app:layout_constraintBottom_toBottomOf="@id/linearView"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

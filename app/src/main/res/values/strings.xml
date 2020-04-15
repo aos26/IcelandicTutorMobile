@@ -13,7 +13,6 @@
     <string name="store">Store</string>
     <string name="clothes">Clothes</string>
     <string name="home">home</string>
-    <string name="back">Back</string>
     <string name="welcome_to_the_dictionary">Welcome to the dictionary!</string>
     <string name="please_select_a_category_below_to_view_vocabulary">Please select a category below to view vocabulary</string>
     <string name="welcome_to_the_game">Welcome to the Game!</string>
@@ -26,6 +25,22 @@
     <string name="select_the_correct_translation">Select the correct answer</string>
     <string name="congratulations_you_just_finished_the_game">Congratulations, you just finished the level!</string>
     <string name="level3">Level 3</string>
+
     <string name="channel_name">nerdAlert</string>
     <string name="channel_description">notification channel</string>
+
+    <string name="create_a_new_flashcard">Create a new flashcard</string>
+    <string name="create_your_own_flashcard">Create your own flashcard</string>
+    <string name="learn_icelandic_with_your_own_flashcards">Learn Icelandic with your own flashcards</string>
+    <string name="turn">Turn</string>
+    <string name="delete">Delete</string>
+    <string name="textview">TextView</string>
+    <string name="write_what_you_want_to_have_at_the_front_of_the_flashcard">Write the Icelandic word on the front of the flashcard</string>
+    <string name="write_what_you_want_to_have_at_the_back_of_the_flashcard">Write the English word on the back of the flashcard</string>
+    <string name="add_to_flashcards">Add to flashcards</string>
+    <string name="back_to_view_all_flashcards">Back to view all flashcards</string>
+    <string name="front">FRONT</string>
+    <string name="back">BACK</string>
+    <string name="next_flashcard">Next flashcard</string>
+
 </resources>
