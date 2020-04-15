@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">IcelandicTutor</string>
     <string name="title_activity_game" />
-    <string name="play_a_game">Play a Game</string>
-    <string name="title_select_category">Game - Selet category</string>
-    <string name="title_select_level">Game - Selet level</string>
-    <string name="learn_some_words_in_the_dictionary">Learn some words in the Dictionary</string>
+    <string name="play_a_game">Quiz me</string>
+    <string name="title_select_category">Game - Select category</string>
+    <string name="title_select_level">Game - Select level</string>
+    <string name="learn_some_words_in_the_dictionary">Check out the dictionary</string>
     <string name="check_your_score">Check your score</string>
     <string name="play_a_game_based_on_your_location">Play a game based on your location</string>
     <string name="create_your_own_flashcards">Create your own flashcards</string>
-    <string name="read_articles_to_expand_your_vocabulary">read articles to expand your vocabulary</string>
+    <string name="read_articles_to_expand_your_vocabulary">Read articles to expand your vocabulary</string>
     <string name="animals">Animals</string>
     <string name="store">Store</string>
     <string name="clothes">Clothes</string>
@@ -17,13 +17,15 @@
     <string name="welcome_to_the_dictionary">Welcome to the dictionary!</string>
     <string name="please_select_a_category_below_to_view_vocabulary">Please select a category below to view vocabulary</string>
     <string name="welcome_to_the_game">Welcome to the Game!</string>
-    <string name="please_select_a_category_you_want_to_play_a_game_in">Please select a category you want to play a game in</string>
+    <string name="please_select_a_category_you_want_to_play_a_game_in">Please select a category</string>
     <string name="level1">Level 1</string>
     <string name="level2">Level 2</string>
     <string name="you_have_selected_the_category">You have selected the category:</string>
-    <string name="please_select_a_level_you_want_to_play_a_game_in">Please select a level you want to play a game in</string>
+    <string name="please_select_a_level_you_want_to_play_a_game_in">Please select a level</string>
     <string name="next_question">Next question</string>
     <string name="select_the_correct_translation">Select the correct answer</string>
-    <string name="congratulations_you_just_finished_the_game">Congratulations, you just finished the game!</string>
+    <string name="congratulations_you_just_finished_the_game">Congratulations, you just finished the level!</string>
     <string name="level3">Level 3</string>
+    <string name="channel_name">nerdAlert</string>
+    <string name="channel_description">notification channel</string>
 </resources>

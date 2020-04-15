@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SET_ALARM"/>
 
     <application
         android:allowBackup="true"
@@ -41,6 +42,7 @@
         <activity android:name=".DictionarySelectionActivity" />
         <activity android:name="ArticleSelectionActivity"/>
         <activity android:name=".ScoreboardActivity" />
+        <receiver android:name=".AlarmNotification"/>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

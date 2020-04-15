@@ -33,17 +33,19 @@
                 android:text="@string/please_select_a_category_you_want_to_play_a_game_in"
                 android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/animalButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:text="@string/animals" />
+                <Button
+                    android:id="@+id/animalButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:background="#66C53C"
+                    android:text="@string/animals" />
 
             <Button
                 android:id="@+id/clothesButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#3CA5C5"
                 android:text="@string/clothes" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
