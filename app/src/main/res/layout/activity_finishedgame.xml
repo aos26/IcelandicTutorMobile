@@ -17,12 +17,9 @@
             android:orientation="vertical">
 
 
-            <TextView
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="62dp"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="42dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -53,54 +50,42 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Check you score:"
+                android:text="@string/check_you_score"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
+
             <Button
                 android:id="@+id/scoreButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Go to Scoreboard" />
+                android:text="@string/go_to_scoreboard" />
 
-            <TextView
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="53dp"
-                android:text=""
-                android:textAlignment="center"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:layout_height="42dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Study the dictionary:"
+                android:text="@string/study_the_dictionary"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
 
             <Button
                 android:id="@+id/dictButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Go to the dictionary" />
-
-            <TextView
-                android:id="@+id/empty1"
-                android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:text=""
-                android:textAlignment="center"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/answer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textAlignment="center"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:text="@string/go_to_the_dictionary" />
 
 
         </LinearLayout>

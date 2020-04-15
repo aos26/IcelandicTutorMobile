@@ -64,17 +64,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/next_flashcard"
+            android:background="#33FF58"
             android:visibility="gone"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
 
         <Button
             android:id="@+id/delete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/delete"
+            android:background="#FF3333"
             android:visibility="gone"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
 
 
     </LinearLayout>
+
+    <Space
+        android:layout_width="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/linearView"
+        android:layout_height="12dp"
+        tools:ignore="MissingConstraints" />
+
     <Button
         android:id="@+id/newFlashcard"
         android:layout_width="match_parent"

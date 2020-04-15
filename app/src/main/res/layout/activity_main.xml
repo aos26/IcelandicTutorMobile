@@ -19,17 +19,42 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="31dp" />
+
+        <TextView
+            android:id="@+id/welcomeDictionary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/welcome_to_the_icelandic_tutor"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="42dp" />
+
         <Button
             android:id="@+id/categoryButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="Category quiz" />
+            android:text="@string/quiz" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
 
         <Button
             android:id="@+id/dictButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="Check out the dictionary" />
+            android:text="@string/check_out_the_dictionary" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
 
         <Button
             android:id="@+id/scoreButton"
@@ -37,11 +62,19 @@
             android:layout_height="60dp"
             android:text="@string/check_your_score" />
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
+
         <Button
             android:id="@+id/flashcardButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:text="@string/create_your_own_flashcards" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
 
         <Button
             android:id="@+id/articleButton"

@@ -17,6 +17,10 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
             <TextView
                 android:id="@+id/welcomeDictionary"
                 android:layout_width="match_parent"
@@ -25,14 +29,22 @@
                 android:text="@string/you_have_selected_the_category"
                 android:textSize="20sp" />
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
+
             <TextView
                 android:id="@+id/categorySelected"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textAlignment="center"
-                android:textSize="30sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
 
             <TextView
                 android:id="@+id/pleaseSelect"
@@ -49,11 +61,19 @@
                 android:layout_marginTop="40dp"
                 android:text="@string/level1" />
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
+
             <Button
                 android:id="@+id/level2Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/level2" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
 
             <Button
                 android:id="@+id/level3Button"
