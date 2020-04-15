@@ -31,10 +31,11 @@
     <string name="turn">Turn</string>
     <string name="delete">Delete</string>
     <string name="textview">TextView</string>
-    <string name="write_what_you_want_to_have_at_the_front_of_the_flashcard">Write what you want to have at the front of the Flashcard</string>
-    <string name="write_what_you_want_to_have_at_the_back_of_the_flashcard">Write what you want to have at the back of the Flashcard</string>
+    <string name="write_what_you_want_to_have_at_the_front_of_the_flashcard">Write the Icelandic word on the front of the flashcard</string>
+    <string name="write_what_you_want_to_have_at_the_back_of_the_flashcard">Write the English word on the back of the flashcard</string>
     <string name="add_to_flashcards">Add to flashcards</string>
     <string name="back_to_view_all_flashcards">Back to view all flashcards</string>
     <string name="front">FRONT</string>
     <string name="back">BACK</string>
+    <string name="next_flashcard">Next flashcard</string>
 </resources>
