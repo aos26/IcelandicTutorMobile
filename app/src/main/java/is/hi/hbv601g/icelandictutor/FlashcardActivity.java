@@ -128,37 +128,44 @@ public class FlashcardActivity extends AppCompatActivity {
                     public void onResponse(JSONArray response) {
                         Log.e("Rest response", response.toString());
                         JSONObject jsonobject = null;
-                        if(response.length()!=0) {
-                            Log.e("Lengd: ", String.valueOf(response.length()));
-
-                            try {
-                                if(response.length()==mFlashcardNumber){
-                                    mFlashcardNumber=0;
+                            if (response.length() != 0) {
+                                Log.e("Lengd: ", String.valueOf(response.length()));
+                                try {
+                                    if(response.length()<=mFlashcardNumber) {
+                                        mFlashcardNumber = 0;
+                                    }
+                                    jsonobject = response.getJSONObject(mFlashcardNumber);
+                                    String icelandic = jsonobject.getString("icelandic");
+                                    Log.e("Flashcard: ", icelandic);
+                                    String english = jsonobject.getString("english");
+                                    Log.e("Flashcard: ", english);
+                                    mFlashcardID = jsonobject.getString("id");
+                                    Log.e("id: ", mFlashcardID);
+                                    TextView texti1 = (TextView) findViewById(R.id.textFront);
+                                    texti1.setText(icelandic);
+                                    TextView texti2 = (TextView) findViewById(R.id.textBack);
+                                    texti2.setText(english);
+                                    mFlashcard = findViewById(R.id.frameLayout);
+                                    mFlashcard.setVisibility(View.VISIBLE);
+                                    mNextFlashcard = findViewById(R.id.nextFlashcard);
+                                    mNextFlashcard.setVisibility(View.VISIBLE);
+                                    mDeleteFlashcard = findViewById(R.id.delete);
+                                    mDeleteFlashcard.setVisibility(View.VISIBLE);
+                                    mFlashcardNumber++;
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
-                                jsonobject = response.getJSONObject(mFlashcardNumber);
-                                String icelandic = jsonobject.getString("icelandic");
-                                Log.e("Flashcard: ", icelandic);
-                                String english = jsonobject.getString("english");
-                                Log.e("Flashcard: ", english);
-                                mFlashcardID = jsonobject.getString("id");
-                                Log.e("id: ", mFlashcardID);
-                                TextView texti1 = (TextView) findViewById(R.id.textFront);
-                                texti1.setText(icelandic);
-                                TextView texti2 = (TextView) findViewById(R.id.textBack);
-                                texti2.setText(english);
-                                mFlashcard = findViewById(R.id.frameLayout);
-                                mFlashcard.setVisibility(View.VISIBLE);
-                                mNextFlashcard = findViewById(R.id.nextFlashcard);
-                                mNextFlashcard.setVisibility(View.VISIBLE);
-                                mDeleteFlashcard = findViewById(R.id.delete);
-                                mDeleteFlashcard.setVisibility(View.VISIBLE);
-                                mFlashcardNumber++;
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
 
+                            } else {
+                                mFlashcard = findViewById(R.id.frameLayout);
+                                mFlashcard.setVisibility(View.INVISIBLE);
+                                mNextFlashcard = findViewById(R.id.nextFlashcard);
+                                mNextFlashcard.setVisibility(View.INVISIBLE);
+                                mDeleteFlashcard = findViewById(R.id.delete);
+                                mDeleteFlashcard.setVisibility(View.INVISIBLE);
+                            }
                         }
-                    }
+
                 },
                 new Response.ErrorListener() {
                     @Override
@@ -179,17 +186,16 @@ public class FlashcardActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         String url = "https://icelandic-tutor.herokuapp.com/delflashcard?id=" + mFlashcardID;
-        mFlashcardNumber--;
-        getFlashcard();
         Toast.makeText(getApplicationContext(), "Flashcard deleted", Toast.LENGTH_SHORT).show();
         JsonObjectRequest objectRequest = new JsonObjectRequest(
-                Request.Method.PUT,
+                Request.Method.DELETE,
                 url,
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.e("Rest Update response", response.toString());
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -200,7 +206,7 @@ public class FlashcardActivity extends AppCompatActivity {
                 }
         );
         requestQueue.add(objectRequest);
-
+        getFlashcard();
     }
 
 
