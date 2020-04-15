@@ -172,6 +172,7 @@ public class FinishedgameActivity extends AppCompatActivity {
     // Go to Flashcards
     public void goToFlashcards(){
         Intent intent = new Intent(FinishedgameActivity.this, FlashcardActivity.class);
+        intent.putExtra("number",0);
         startActivity(intent);
     }
 
