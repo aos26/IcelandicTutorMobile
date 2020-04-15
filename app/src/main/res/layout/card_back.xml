@@ -15,12 +15,13 @@
 
     <TextView
         android:id="@+id/textBack"
+        style="@style/Base.TextAppearance.AppCompat.Display1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:text=""
         android:textColor="@color/white"
-        style="@style/Base.TextAppearance.AppCompat.Display1"
-        android:gravity="center"/>
+        android:textStyle="bold" />
 
 
 </FrameLayout>

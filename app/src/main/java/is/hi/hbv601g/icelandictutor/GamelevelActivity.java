@@ -133,25 +133,25 @@ public class GamelevelActivity extends AppCompatActivity {
 
                             if(value.equals("1")) {
                                 if(animal1) {
-                                    mlevel1Button.setBackgroundColor(Color.GREEN);
+                                    mlevel1Button.setBackgroundColor(Color.parseColor("#33FF58"));
                                 }
                                 if(animal2) {
-                                    mlevel2Button.setBackgroundColor(Color.GREEN);
+                                    mlevel2Button.setBackgroundColor(Color.parseColor("#33FF58"));
                                 }
                                 if(animal3) {
-                                    mlevel3Button.setBackgroundColor(Color.GREEN);
+                                    mlevel3Button.setBackgroundColor(Color.parseColor("#33FF58"));
                                 }
                             }
 
                             else if(value.equals("2")) {
                                 if(clothes1) {
-                                    mlevel1Button.setBackgroundColor(Color.GREEN);
+                                    mlevel1Button.setBackgroundColor(Color.parseColor("#33FF58"));
                                 }
                                 if(clothes2) {
-                                    mlevel2Button.setBackgroundColor(Color.GREEN);
+                                    mlevel2Button.setBackgroundColor(Color.parseColor("#33FF58"));
                                 }
                                 if(clothes3) {
-                                    mlevel3Button.setBackgroundColor(Color.GREEN);
+                                    mlevel3Button.setBackgroundColor(Color.parseColor("#33FF58"));
                                 }
                             }
 

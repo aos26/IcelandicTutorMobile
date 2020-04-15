@@ -81,6 +81,7 @@
             android:id="@+id/addNewFlashcard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#33FF58"
             android:text="@string/add_to_flashcards" />
 
     </LinearLayout>

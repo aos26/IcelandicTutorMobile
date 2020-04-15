@@ -17,13 +17,22 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
+
             <TextView
                 android:id="@+id/welcomeDictionary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/welcome_to_the_dictionary"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="23dp" />
 
             <TextView
                 android:id="@+id/pleaseSelect"
@@ -38,14 +47,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:background="#66C53C"
                 android:text="@string/animals" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
 
             <Button
                 android:id="@+id/clothesButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#3CA5C5"
                 android:text="@string/clothes" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

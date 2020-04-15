@@ -17,20 +17,29 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="23dp" />
+
             <TextView
                 android:id="@+id/welcomeArticles"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Articles"
-                android:textSize="20sp" />
+                android:text="@string/articles"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
 
             <TextView
                 android:id="@+id/pleaseSelect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Please select an article below"
+                android:text="@string/please_select_an_article_below"
                 android:textSize="16sp" />
 
             <Button
@@ -38,19 +47,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:text="Theater under Arnarh'oll" />
+                android:text="@string/theater_under_arnarh_oll" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
 
             <Button
                 android:id="@+id/HildurWins"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hildur wins Oscar for score to Joker" />
+                android:text="@string/hildur_wins_oscar_for_score_to_joker" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
 
             <Button
                 android:id="@+id/visitReykjavik"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Website makes visiting Reykjavik easy" />
+                android:text="@string/website_makes_visiting_reykjavik_easy" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

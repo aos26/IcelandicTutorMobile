@@ -262,7 +262,7 @@ public class GameActivity extends AppCompatActivity {
             mAnswer1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mAnswer1.setBackgroundColor(Color.GREEN);
+                    mAnswer1.setBackgroundColor(Color.parseColor("#33FF58"));
                     correct++;
                     mAnswer2.setClickable(false);
                     mAnswer3.setClickable(false);
@@ -273,7 +273,7 @@ public class GameActivity extends AppCompatActivity {
             mAnswer2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mAnswer2.setBackgroundColor(Color.RED);
+                    mAnswer2.setBackgroundColor(Color.parseColor("#FF3333"));
                     mAnswer1.setClickable(false);
                     mAnswer3.setClickable(false);
                     goToAnswer(Boolean.FALSE, answer);
@@ -283,7 +283,7 @@ public class GameActivity extends AppCompatActivity {
             mAnswer3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mAnswer3.setBackgroundColor(Color.RED);
+                    mAnswer3.setBackgroundColor(Color.parseColor("#FF3333"));
                     mAnswer1.setClickable(false);
                     mAnswer2.setClickable(false);
                     goToAnswer(Boolean.FALSE, answer);
@@ -295,7 +295,7 @@ public class GameActivity extends AppCompatActivity {
             mAnswer1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mAnswer1.setBackgroundColor(Color.RED);
+                    mAnswer1.setBackgroundColor(Color.parseColor("#FF3333"));
                     mAnswer2.setClickable(false);
                     mAnswer3.setClickable(false);
                     goToAnswer(Boolean.FALSE, answer);
@@ -305,7 +305,7 @@ public class GameActivity extends AppCompatActivity {
             mAnswer2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mAnswer2.setBackgroundColor(Color.GREEN);
+                    mAnswer2.setBackgroundColor(Color.parseColor("#33FF58"));
                     correct++;
                     mAnswer1.setClickable(false);
                     mAnswer3.setClickable(false);
@@ -316,7 +316,7 @@ public class GameActivity extends AppCompatActivity {
             mAnswer3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mAnswer3.setBackgroundColor(Color.RED);
+                    mAnswer3.setBackgroundColor(Color.parseColor("#FF3333"));
                     mAnswer2.setClickable(false);
                     mAnswer1.setClickable(false);
                     goToAnswer(Boolean.FALSE, answer);
@@ -328,7 +328,7 @@ public class GameActivity extends AppCompatActivity {
             mAnswer1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mAnswer1.setBackgroundColor(Color.RED);
+                    mAnswer1.setBackgroundColor(Color.parseColor("#FF3333"));
                     mAnswer2.setClickable(false);
                     mAnswer3.setClickable(false);
                     goToAnswer(Boolean.FALSE, answer);
@@ -338,7 +338,7 @@ public class GameActivity extends AppCompatActivity {
             mAnswer2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mAnswer2.setBackgroundColor(Color.RED);
+                    mAnswer2.setBackgroundColor(Color.parseColor("#FF3333"));
                     mAnswer1.setClickable(false);
                     mAnswer3.setClickable(false);
                     goToAnswer(Boolean.FALSE, answer);
@@ -348,7 +348,7 @@ public class GameActivity extends AppCompatActivity {
             mAnswer3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mAnswer3.setBackgroundColor(Color.GREEN);
+                    mAnswer3.setBackgroundColor(Color.parseColor("#33FF58"));
                     correct++;
                     mAnswer1.setClickable(false);
                     mAnswer2.setClickable(false);
