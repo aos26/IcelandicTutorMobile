@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -44,16 +45,20 @@ public class FlashcardActivity extends AppCompatActivity {
     private Button mNextFlashcard;
     private Button mDeleteFlashcard;
     private FrameLayout mFlashcard;
+    private String mFlashcardID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flashcard);
 
-        mFlashcardNumber = 0;
 
-        //create new flashcard
-        getFlashcard(mFlashcardNumber);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            mFlashcardNumber = extras.getInt("number");
+            getFlashcard();
+        }
+
 
         // flip flashcards
         findViews();
@@ -74,17 +79,19 @@ public class FlashcardActivity extends AppCompatActivity {
         mNextFlashcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mIsBackVisible) {
-                } else {
-                    mSetRightOut.setTarget(mCardBackLayout);
-                    mSetLeftIn.setTarget(mCardFrontLayout);
-                    mSetRightOut.start();
-                    mSetLeftIn.start();
-                    mIsBackVisible = false;
-                }
                 goToNextFlashcard(mFlashcardNumber);
             }
         });
+
+        mDeleteFlashcard = findViewById(R.id.delete);
+        mDeleteFlashcard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteFlashcard();
+            }
+        });
+
+
     }
 
     // Go to dictionary view
@@ -92,16 +99,17 @@ public class FlashcardActivity extends AppCompatActivity {
         Intent intent = new Intent(FlashcardActivity.this, CreateFlashcardActivity.class);
         startActivity(intent);
     }
+
     public void goToNextFlashcard(Integer number){
-        number++;
-        getFlashcard(number);
+        Intent intent = new Intent(FlashcardActivity.this, FlashcardActivity.class);
+        intent.putExtra("number",number);
+        startActivity(intent);
     }
 
 
 
-
-    private void getFlashcard(final Integer numberFlashcard) {
-        Log.e("Tala: ", String.valueOf(numberFlashcard));
+    private void getFlashcard() {
+        //Log.e("Tala: ", String.valueOf(numberFlashcard));
         Context context = getApplicationContext();
         SharedPreferences sharedPreferences = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
 
@@ -124,11 +132,16 @@ public class FlashcardActivity extends AppCompatActivity {
                             Log.e("Lengd: ", String.valueOf(response.length()));
 
                             try {
-                                jsonobject = response.getJSONObject(numberFlashcard);
+                                if(response.length()==mFlashcardNumber){
+                                    mFlashcardNumber=0;
+                                }
+                                jsonobject = response.getJSONObject(mFlashcardNumber);
                                 String icelandic = jsonobject.getString("icelandic");
                                 Log.e("Flashcard: ", icelandic);
                                 String english = jsonobject.getString("english");
                                 Log.e("Flashcard: ", english);
+                                mFlashcardID = jsonobject.getString("id");
+                                Log.e("id: ", mFlashcardID);
                                 TextView texti1 = (TextView) findViewById(R.id.textFront);
                                 texti1.setText(icelandic);
                                 TextView texti2 = (TextView) findViewById(R.id.textBack);
@@ -157,6 +170,38 @@ public class FlashcardActivity extends AppCompatActivity {
         requestQueue.add(objectRequest);
     }
 
+    // delete flashcard
+    private void deleteFlashcard() {
+        Context context = getApplicationContext();
+        SharedPreferences sharedPreferences = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
+
+        long userID = sharedPreferences.getLong("userID", 0);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        String url = "https://icelandic-tutor.herokuapp.com/delflashcard?id=" + mFlashcardID;
+        mFlashcardNumber--;
+        getFlashcard();
+        Toast.makeText(getApplicationContext(), "Flashcard deleted", Toast.LENGTH_SHORT).show();
+        JsonObjectRequest objectRequest = new JsonObjectRequest(
+                Request.Method.PUT,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.e("Rest Update response", response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Rest update error", error.toString());
+                    }
+                }
+        );
+        requestQueue.add(objectRequest);
+
+    }
 
 
 
@@ -258,13 +303,14 @@ public class FlashcardActivity extends AppCompatActivity {
 
     // Go to Articles
     public void goToArticleSelection() {
-        Intent intent = new Intent(FlashcardActivity.this, ArticleActivity.class);
+        Intent intent = new Intent(FlashcardActivity.this, ArticleSelectionActivity.class);
         startActivity(intent);
     }
 
     // Go to Flashcards
     public void goToFlashcards(){
         Intent intent = new Intent(FlashcardActivity.this, FlashcardActivity.class);
+        intent.putExtra("number",0);
         startActivity(intent);
     }
 

@@ -187,6 +187,7 @@ public class CreateFlashcardActivity extends AppCompatActivity {
     // Go to Flashcards
     public void goToFlashcards(){
         Intent intent = new Intent(CreateFlashcardActivity.this, FlashcardActivity.class);
+        intent.putExtra("number",0);
         startActivity(intent);
     }
 
