@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        triggerNotification();
+
         // go to dictionary
         mDictionaryButton = findViewById(R.id.dictButton);
         mDictionaryButton.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 goToDictionarySelection();
             }
         });
-        
+
         // go to Score
         mScoreButton = findViewById(R.id.scoreButton);
         mScoreButton.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +97,19 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    private void triggerNotification() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 47);
+
+        Intent intent = new Intent(getApplicationContext(), AlarmNotification.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+    }
+
     // menubar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
