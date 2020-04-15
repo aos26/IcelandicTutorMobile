@@ -79,7 +79,7 @@ public class FlashcardActivity extends AppCompatActivity {
         mNextFlashcard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToNextFlashcard(mFlashcardNumber);
+                goToNextFlashcard();
             }
         });
 
@@ -88,7 +88,10 @@ public class FlashcardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 deleteFlashcard();
-                goToNextFlashcard(mFlashcardNumber);
+                mFlashcardNumber--;
+                Log.e("talaFall: ", Integer.toString(mFlashcardNumber));
+                goToNextFlashcard();
+
             }
         });
 
@@ -101,16 +104,16 @@ public class FlashcardActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void goToNextFlashcard(Integer number){
+    public void goToNextFlashcard(){
         Intent intent = new Intent(FlashcardActivity.this, FlashcardActivity.class);
-        intent.putExtra("number",number);
+        intent.putExtra("number",mFlashcardNumber);
         startActivity(intent);
     }
 
 
 
     private void getFlashcard() {
-        //Log.e("Tala: ", String.valueOf(numberFlashcard));
+        Log.e("talagetFlashcard: ", Integer.toString(mFlashcardNumber));
         Context context = getApplicationContext();
         SharedPreferences sharedPreferences = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
 
@@ -196,6 +199,7 @@ public class FlashcardActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.e("Rest Update response", response.toString());
+                        Log.e("taladelete: ", Integer.toString(mFlashcardNumber));
                     }
                 },
                 new Response.ErrorListener() {
@@ -207,11 +211,6 @@ public class FlashcardActivity extends AppCompatActivity {
         );
         requestQueue.add(objectRequest);
     }
-
-
-
-
-
 
     // flip flashcards
     private void changeCameraDistance() {
