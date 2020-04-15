@@ -88,6 +88,7 @@ public class FlashcardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 deleteFlashcard();
+                goToNextFlashcard(mFlashcardNumber);
             }
         });
 
@@ -195,7 +196,6 @@ public class FlashcardActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.e("Rest Update response", response.toString());
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -206,7 +206,6 @@ public class FlashcardActivity extends AppCompatActivity {
                 }
         );
         requestQueue.add(objectRequest);
-        getFlashcard();
     }
 
 
