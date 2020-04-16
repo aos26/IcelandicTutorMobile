@@ -45,13 +45,13 @@
     <string name="welcome_to_the_icelandic_tutor">Welcome to Icelandic Tutor</string>
     <string name="quiz">Quiz me</string>
     <string name="check_out_the_dictionary">Check out the dictionary</string>
-    <string name="check_you_score">Check you score:</string>
+    <string name="check_you_score">Check your score:</string>
     <string name="go_to_scoreboard">Go to Scoreboard</string>
-    <string name="study_the_dictionary">Study the dictionary:</string>
+    <string name="study_the_dictionary">Check out the dictionary:</string>
     <string name="go_to_the_dictionary">Go to the dictionary</string>
     <string name="articles">Articles</string>
     <string name="please_select_an_article_below">Please select an article below</string>
-    <string name="theater_under_arnarh_oll">Theater under Arnarh\'oll</string>
+    <string name="theater_under_arnarh_oll">Theater under Arnarhóll</string>
     <string name="hildur_wins_oscar_for_score_to_joker">Hildur wins Oscar for score to Joker</string>
     <string name="website_makes_visiting_reykjavik_easy">Website makes visiting Reykjavik easy</string>
 

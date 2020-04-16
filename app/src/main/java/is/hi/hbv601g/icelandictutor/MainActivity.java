@@ -13,6 +13,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     private void triggerNotification() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 47);
+        calendar.set(Calendar.MINUTE, 22);
 
         Intent intent = new Intent(getApplicationContext(), AlarmNotification.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -138,6 +139,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.menu5:
                 goToArticleSelection();
+                return true;
+            case R.id.menu6:
+                logout();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -185,6 +189,15 @@ public class MainActivity extends AppCompatActivity {
     // Go to Main Page
     public void goToMain(){
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void logout() {
+        Context context = getApplicationContext();
+        SharedPreferences settings = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
+        settings.edit().putLong("userID", 0).apply();
+
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 

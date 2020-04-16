@@ -26,5 +26,8 @@
         android:title="Articles"
         app:showAsAction="never"/>
 
+    <item android:id="@+id/menu6"
+        android:title="Log out"
+        app:showAsAction="never"/>
 
 </menu>
