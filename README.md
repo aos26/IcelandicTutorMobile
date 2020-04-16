@@ -8,6 +8,8 @@ For the build gradle we used the following versions:
 
     buildToolsVersion "29.0.3"
 
+The device emulator is: Pixel 2 API 27 (26 is also acceptable).
+
 It is not necessary to get any external API or other objects to run the application.
 
 
