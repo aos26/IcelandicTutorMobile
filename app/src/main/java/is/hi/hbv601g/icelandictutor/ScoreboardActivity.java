@@ -202,6 +202,9 @@ public class ScoreboardActivity extends AppCompatActivity {
             case R.id.menu5:
                 goToArticleSelection();
                 return true;
+            case R.id.menu6:
+                logout();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -242,6 +245,15 @@ public class ScoreboardActivity extends AppCompatActivity {
     public void goToFlashcards(){
         Intent intent = new Intent(ScoreboardActivity.this, FlashcardActivity.class);
         intent.putExtra("number",0);
+        startActivity(intent);
+    }
+
+    public void logout() {
+        Context context = getApplicationContext();
+        SharedPreferences settings = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
+        settings.edit().putLong("userID", 0).apply();
+
+        Intent intent = new Intent(ScoreboardActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 

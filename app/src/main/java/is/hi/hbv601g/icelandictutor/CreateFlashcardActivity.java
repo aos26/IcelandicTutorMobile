@@ -21,8 +21,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -148,6 +146,9 @@ public class CreateFlashcardActivity extends AppCompatActivity {
             case R.id.menu5:
                 goToArticleSelection();
                 return true;
+            case R.id.menu6:
+                logout();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -194,6 +195,15 @@ public class CreateFlashcardActivity extends AppCompatActivity {
     // Go to Main Page
     public void goToMain(){
         Intent intent = new Intent(CreateFlashcardActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void logout() {
+        Context context = getApplicationContext();
+        SharedPreferences settings = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
+        settings.edit().putLong("userID", 0).apply();
+
+        Intent intent = new Intent(CreateFlashcardActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 }

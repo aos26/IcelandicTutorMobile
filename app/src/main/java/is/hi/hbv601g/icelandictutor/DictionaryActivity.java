@@ -1,6 +1,8 @@
 package is.hi.hbv601g.icelandictutor;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,7 +55,7 @@ public class DictionaryActivity extends AppCompatActivity {
     }
 
     // Create layout for words in category
-    public void createTableEntry(String question, String answer) {
+    private void createTableEntry(String question, String answer) {
         TableLayout tl = (TableLayout) findViewById(R.id.myTable);
         /* Create a new row to be added. */
         TableRow tr = new TableRow(this);
@@ -159,6 +161,9 @@ public class DictionaryActivity extends AppCompatActivity {
             case R.id.menu5:
                 goToArticleSelection();
                 return true;
+            case R.id.menu6:
+                logout();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -205,6 +210,15 @@ public class DictionaryActivity extends AppCompatActivity {
     // Go to Main Page
     public void goToMain(){
         Intent intent = new Intent(DictionaryActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void logout() {
+        Context context = getApplicationContext();
+        SharedPreferences settings = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
+        settings.edit().putLong("userID", 0).apply();
+
+        Intent intent = new Intent(DictionaryActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 }

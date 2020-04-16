@@ -1,6 +1,8 @@
 package is.hi.hbv601g.icelandictutor;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -87,6 +89,9 @@ public class DictionarySelectionActivity extends AppCompatActivity {
             case R.id.menu5:
                 goToArticleSelection();
                 return true;
+            case R.id.menu6:
+                logout();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -127,6 +132,15 @@ public class DictionarySelectionActivity extends AppCompatActivity {
     public void goToFlashcards(){
         Intent intent = new Intent(DictionarySelectionActivity.this, FlashcardActivity.class);
         intent.putExtra("number",0);
+        startActivity(intent);
+    }
+
+    public void logout() {
+        Context context = getApplicationContext();
+        SharedPreferences settings = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
+        settings.edit().putLong("userID", 0).apply();
+
+        Intent intent = new Intent(DictionarySelectionActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 

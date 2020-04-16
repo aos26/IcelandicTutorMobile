@@ -8,8 +8,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,7 +32,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
-import java.net.URL;
 
 public class GameActivity extends AppCompatActivity {
     private Button mAnswer1;
@@ -441,6 +438,9 @@ public class GameActivity extends AppCompatActivity {
             case R.id.menu5:
                 goToArticleSelection();
                 return true;
+            case R.id.menu6:
+                logout();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -487,6 +487,15 @@ public class GameActivity extends AppCompatActivity {
     // Go to Main Page
     public void goToMain(){
         Intent intent = new Intent(GameActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void logout() {
+        Context context = getApplicationContext();
+        SharedPreferences settings = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
+        settings.edit().putLong("userID", 0).apply();
+
+        Intent intent = new Intent(GameActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 

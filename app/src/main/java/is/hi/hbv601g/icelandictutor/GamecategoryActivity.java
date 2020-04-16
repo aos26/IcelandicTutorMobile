@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -150,6 +149,9 @@ public class GamecategoryActivity extends AppCompatActivity {
             case R.id.menu5:
                 goToArticleSelection();
                 return true;
+            case R.id.menu6:
+                logout();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -190,6 +192,15 @@ public class GamecategoryActivity extends AppCompatActivity {
     public void goToFlashcards(){
         Intent intent = new Intent(GamecategoryActivity.this, FlashcardActivity.class);
         intent.putExtra("number",0);
+        startActivity(intent);
+    }
+
+    public void logout() {
+        Context context = getApplicationContext();
+        SharedPreferences settings = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
+        settings.edit().putLong("userID", 0).apply();
+
+        Intent intent = new Intent(GamecategoryActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 }

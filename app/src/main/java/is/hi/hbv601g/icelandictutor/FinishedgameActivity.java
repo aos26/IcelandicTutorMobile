@@ -21,7 +21,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FinishedgameActivity extends AppCompatActivity {
@@ -75,7 +74,7 @@ public class FinishedgameActivity extends AppCompatActivity {
         });
     }
 
-    public void updateProgress() {
+    private void updateProgress() {
         Context context = getApplicationContext();
         SharedPreferences sharedPreferences = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
 
@@ -144,6 +143,9 @@ public class FinishedgameActivity extends AppCompatActivity {
             case R.id.menu5:
                 goToArticleSelection();
                 return true;
+            case R.id.menu6:
+                logout();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -179,6 +181,15 @@ public class FinishedgameActivity extends AppCompatActivity {
     // Go to Main Page
     public void goToMain(){
         Intent intent = new Intent(FinishedgameActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void logout() {
+        Context context = getApplicationContext();
+        SharedPreferences settings = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
+        settings.edit().putLong("userID", 0).apply();
+
+        Intent intent = new Intent(FinishedgameActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 }
