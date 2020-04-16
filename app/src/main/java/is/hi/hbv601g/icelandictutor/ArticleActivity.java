@@ -2,7 +2,9 @@ package is.hi.hbv601g.icelandictutor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,11 +18,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -64,7 +64,7 @@ public class ArticleActivity extends AppCompatActivity {
         });
     }
 
-    public void setLang() {
+    private void setLang() {
         if(icelandic) {
             icelandic = false;
             mToggleLang.setText("Read in Icelandic");
@@ -77,7 +77,7 @@ public class ArticleActivity extends AppCompatActivity {
         insertText();
     }
 
-    public void insertText() {
+    private void insertText() {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         // Piece together the correct url based on category that was selected
@@ -158,6 +158,9 @@ public class ArticleActivity extends AppCompatActivity {
             case R.id.menu5:
                 goToArticleSelection();
                 return true;
+            case R.id.menu6:
+                logout();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -204,6 +207,15 @@ public class ArticleActivity extends AppCompatActivity {
     // Go to Main Page
     public void goToMain(){
         Intent intent = new Intent(ArticleActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void logout() {
+        Context context = getApplicationContext();
+        SharedPreferences settings = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
+        settings.edit().putLong("userID", 0).apply();
+
+        Intent intent = new Intent(ArticleActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 }

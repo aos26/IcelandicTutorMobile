@@ -30,8 +30,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
-
 public class FlashcardActivity extends AppCompatActivity {
 
     private AnimatorSet mSetRightOut;
@@ -275,6 +273,9 @@ public class FlashcardActivity extends AppCompatActivity {
             case R.id.menu5:
                 goToArticleSelection();
                 return true;
+            case R.id.menu6:
+                logout();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -321,6 +322,15 @@ public class FlashcardActivity extends AppCompatActivity {
     // Go to Main Page
     public void goToMain(){
         Intent intent = new Intent(FlashcardActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void logout() {
+        Context context = getApplicationContext();
+        SharedPreferences settings = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
+        settings.edit().putLong("userID", 0).apply();
+
+        Intent intent = new Intent(FlashcardActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 }

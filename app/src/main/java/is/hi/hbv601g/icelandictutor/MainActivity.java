@@ -1,18 +1,10 @@
 package is.hi.hbv601g.icelandictutor;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
-import android.app.DatePickerDialog;
-import android.app.Notification;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,13 +13,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private Button mScoreButton;
@@ -36,13 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mArticleButton;
     private Button mFlashcardButton;
     private Button mLocationButton;
-
-    //used for register alarm manager
-    PendingIntent pendingIntent;
-    //used to store running alarmmanager instance
-    AlarmManager alarmManager;
-    //Callback function for Alarmmanager event
-    BroadcastReceiver mReceiver;
+    private TextView mWelcomeText;
 
 
     @Override
@@ -51,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         triggerNotification();
+
+        mWelcomeText = findViewById(R.id.welcomeMain);
+        setName();
 
         // go to dictionary
         mDictionaryButton = findViewById(R.id.dictButton);
@@ -101,14 +96,49 @@ public class MainActivity extends AppCompatActivity {
 
     private void triggerNotification() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 22);
+        calendar.set(Calendar.HOUR_OF_DAY, 16);
+        calendar.set(Calendar.MINUTE, 30);
 
         Intent intent = new Intent(getApplicationContext(), AlarmNotification.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+    }
+
+    private void setName() {
+        Context context = getApplicationContext();
+        SharedPreferences sharedPreferences = context.getSharedPreferences("currUser", Context.MODE_PRIVATE);
+
+        long userID = sharedPreferences.getLong("userID", 0);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "https://icelandic-tutor.herokuapp.com/user?user_id=" + userID;
+
+        JsonObjectRequest objectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try {
+                            String name = response.getString("name");
+                            mWelcomeText.setText("Welcome to IcelandicTutor, " + name);
+                            //Log.e("onResponse: ", score);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Rest error", error.toString());
+                    }
+                }
+        );
+        requestQueue.add(objectRequest);
     }
 
     // menubar
