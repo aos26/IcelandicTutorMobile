@@ -47,6 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
+                    android:background="#A775FF"
                     android:text="@string/animals" />
 
             <Space
@@ -56,6 +57,7 @@
             <Button
                 android:id="@+id/clothesButton"
                 android:layout_width="match_parent"
+                android:background="#FFFF4F"
                 android:layout_height="wrap_content"
                 android:text="@string/clothes" />
         </LinearLayout>

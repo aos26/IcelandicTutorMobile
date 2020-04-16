@@ -42,8 +42,8 @@
     <string name="front">FRONT</string>
     <string name="back">BACK</string>
     <string name="next_flashcard">Next flashcard</string>
-    <string name="welcome_to_the_icelandic_tutor">Welcome to the Icelandic Tutor</string>
-    <string name="quiz">Take a Quiz</string>
+    <string name="welcome_to_the_icelandic_tutor">Welcome to Icelandic Tutor</string>
+    <string name="quiz">Quiz me</string>
     <string name="check_out_the_dictionary">Check out the dictionary</string>
     <string name="check_you_score">Check you score:</string>
     <string name="go_to_scoreboard">Go to Scoreboard</string>

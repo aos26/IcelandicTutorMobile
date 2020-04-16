@@ -7,7 +7,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:tint="@color/white"
+        android:tint="@color/cardFront"
         android:padding="16dp"
         android:src="@drawable/rectangle"/>
 
@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text=""
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textStyle="bold"
         style="@style/Base.TextAppearance.AppCompat.Display1"
         android:gravity="center"/>
